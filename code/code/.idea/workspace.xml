@@ -4,23 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5df03e97-d042-453f-9d85-e2bf139f664b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.agent.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/benchmark/Benchmark1.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/model/Producer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/model/Product.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/model/Review.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/BenchmarkRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/HibernateRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/hibernate-h2.cfg.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../data/create_tables.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../docker-compose.yml" afterDir="false" />
+    <list default="true" id="5df03e97-d042-453f-9d85-e2bf139f664b" name="Changes" comment="Working first test">
+      <change afterPath="$PROJECT_DIR$/../../check_db.ps1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.edit.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/copilotDiffState.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/Config.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/DataNucleusRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/EclipseLinkRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/RepositoryFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/benchmark/Benchmark1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/benchmark/Benchmark1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/model/Producer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/model/Producer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/model/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/model/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/model/Review.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/HibernateRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/HibernateRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate-postgres.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testdb.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/testdb.mv.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testdb.trace.db" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,25 +44,25 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Sladamos"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Sladamos&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Sladamos/ormCompare",
-    "accountId": "d1823790-7ef6-4388-ac3b-2b4b36bff4eb"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Sladamos/ormCompare&quot;,
+    &quot;accountId&quot;: &quot;d1823790-7ef6-4388-ac3b-2b4b36bff4eb&quot;
   }
-}]]></component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 1
-}]]></component>
+}</component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
   <component name="ProjectId" id="39iBjuqZi2w7GA8Jm4UhdaePWyb" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -71,6 +74,12 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "Maven.Main.executor": "Run",
+    "Maven.orm-compare [clean,compile...].executor": "Run",
+    "Maven.orm-compare [clean].executor": "Run",
+    "Maven.orm-compare [datanucleus:enhance].executor": "Run",
+    "Maven.orm-compare [install,--non-recursive].executor": "Run",
+    "Maven.orm-compare [mvn,clean].executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -81,7 +90,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "editor.preferences.import",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -106,7 +115,7 @@
         </pattern>
       </extension>
       <method v="2">
-        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="clean compile datanucleus:enhance" />
       </method>
     </configuration>
     <recent_temporary>
@@ -131,12 +140,30 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1771169151068</updated>
-      <workItem from="1771169152032" duration="4924000" />
+      <workItem from="1771169152032" duration="5173000" />
+      <workItem from="1771692621288" duration="16000" />
+      <workItem from="1771763851216" duration="2105000" />
+      <workItem from="1771788279877" duration="1937000" />
+      <workItem from="1772045781312" duration="5620000" />
+      <workItem from="1772051422198" duration="2772000" />
     </task>
+    <task id="LOCAL-00001" summary="Working first test">
+      <option name="closed" value="true" />
+      <created>1771174264477</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1771174264477</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Working first test" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working first test" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

@@ -8,8 +8,15 @@ import org.hibernate.cfg.Configuration;
 public class HibernateRepository implements BenchmarkRepository {
 
     private SessionFactory sessionFactory;
-    //private final static String configFileName = "hibernate-h2.cfg.xml";
-    private final static String configFileName = "hibernate.cfg.xml";
+    private final String configFileName;
+
+    public HibernateRepository(String profile) {
+        configFileName = "hibernate-%s.cfg.xml".formatted(profile);
+    }
+
+    public HibernateRepository() {
+        this("postgres");
+    }
 
     @Override
     public void setup() {

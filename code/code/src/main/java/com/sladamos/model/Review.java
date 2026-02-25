@@ -25,6 +25,12 @@ public class Review {
     @JoinColumn(name = "product_id")
     private Product product;
 
+    @Transient
+    private Object[] dnDetachedState;
+
+    @Transient
+    private Object[] dnStateManager;
+
     public Review() {}
 
     public Review(Integer id, String firstName, String lastName, Integer rating, String content) {

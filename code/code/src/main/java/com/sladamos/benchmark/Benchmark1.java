@@ -2,10 +2,12 @@ package com.sladamos.benchmark;
 
 import com.sladamos.model.Producer;
 import com.sladamos.repository.BenchmarkRepository;
-import com.sladamos.repository.HibernateRepository;
+import com.sladamos.repository.RepositoryFactory;
 import org.openjdk.jmh.annotations.*;
 
 import java.util.concurrent.TimeUnit;
+
+import static com.sladamos.Config.DB_PROFILE;
 
 @State(Scope.Thread)
 @BenchmarkMode(Mode.SingleShotTime)
@@ -14,13 +16,18 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 5, time = 1)
 @Fork(1)
 public class Benchmark1 {
-    private BenchmarkRepository repository;
+
+    private final RepositoryFactory repositoryFactory = new RepositoryFactory(DB_PROFILE);
 
     private long counter = 0;
 
+    @Param({"hibernate", "eclipselink", "datanucleus"})
+    private String ormProvider;
+    private BenchmarkRepository repository;
+
     @Setup(Level.Trial)
     public void setup() {
-        this.repository = new HibernateRepository();
+        this.repository = repositoryFactory.getBenchmarkRepository(ormProvider);
         this.repository.setup();
     }
 
