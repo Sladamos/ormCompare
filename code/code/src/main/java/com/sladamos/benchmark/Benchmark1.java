@@ -21,7 +21,7 @@ public class Benchmark1 {
 
     private long counter = 0;
 
-    @Param({"hibernate", "eclipselink", "datanucleus"})
+    @Param({"hibernate", "eclipselink", "datanucleus", "cayenne"})
     private String ormProvider;
     private BenchmarkRepository repository;
 

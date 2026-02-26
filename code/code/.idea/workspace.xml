@@ -4,26 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5df03e97-d042-453f-9d85-e2bf139f664b" name="Changes" comment="Working first test">
-      <change afterPath="$PROJECT_DIR$/../../check_db.ps1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.edit.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/copilotDiffState.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/Config.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/DataNucleusRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/EclipseLinkRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/RepositoryFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+    <list default="true" id="5df03e97-d042-453f-9d85-e2bf139f664b" name="Changes" comment="EclipseLink and DataNucleus">
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/CayenneRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/cayenne-h2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/cayenne-postgres.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/datamap.map.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/benchmark/Benchmark1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/benchmark/Benchmark1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/model/Producer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/model/Producer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/model/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/model/Review.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/HibernateRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/HibernateRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/hibernate.cfg.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/hibernate-postgres.cfg.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/RepositoryFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/RepositoryFactory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/testdb.mv.db" beforeDir="false" afterPath="$PROJECT_DIR$/testdb.mv.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testdb.trace.db" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +81,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.runner",
+    "settings.editor.selected.configurable": "editor.preferences.import",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -145,7 +136,8 @@
       <workItem from="1771763851216" duration="2105000" />
       <workItem from="1771788279877" duration="1937000" />
       <workItem from="1772045781312" duration="5620000" />
-      <workItem from="1772051422198" duration="2772000" />
+      <workItem from="1772051422198" duration="2846000" />
+      <workItem from="1772105705607" duration="3276000" />
     </task>
     <task id="LOCAL-00001" summary="Working first test">
       <option name="closed" value="true" />
@@ -155,7 +147,15 @@
       <option name="project" value="LOCAL" />
       <updated>1771174264477</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="EclipseLink and DataNucleus">
+      <option name="closed" value="true" />
+      <created>1772054261186</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1772054261186</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,7 +163,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Working first test" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working first test" />
+    <MESSAGE value="EclipseLink and DataNucleus" />
+    <option name="LAST_COMMIT_MESSAGE" value="EclipseLink and DataNucleus" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data-map xmlns="http://cayenne.apache.org/schema/10/modelMap"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://cayenne.apache.org/schema/10/modelMap https://cayenne.apache.org/schema/10/modelMap.xsd"
+          project-version="10">
+
+    <db-entity name="producer">
+        <db-attribute name="country" type="VARCHAR" length="255" isMandatory="true"/>
+        <db-attribute name="id" type="INTEGER" isPrimaryKey="true" isGenerated="true"/>
+        <db-attribute name="name" type="VARCHAR" length="255" isMandatory="true"/>
+    </db-entity>
+    <db-entity name="product">
+        <db-attribute name="id" type="INTEGER" isPrimaryKey="true" isGenerated="true"/>
+        <db-attribute name="name" type="VARCHAR" length="255" isMandatory="true"/>
+        <db-attribute name="price" type="DECIMAL" length="10" scale="2"/>
+        <db-attribute name="producer_id" type="INTEGER"/>
+    </db-entity>
+    <db-entity name="review">
+        <db-attribute name="content" type="VARCHAR" length="65535"/>
+        <db-attribute name="first_name" type="VARCHAR" length="255"/>
+        <db-attribute name="id" type="INTEGER" isPrimaryKey="true" isGenerated="true"/>
+        <db-attribute name="last_name" type="VARCHAR" length="255"/>
+        <db-attribute name="product_id" type="INTEGER"/>
+        <db-attribute name="rating" type="INTEGER"/>
+    </db-entity>
+
+    <obj-entity name="Producer" className="org.apache.cayenne.CayenneDataObject" dbEntityName="producer">
+        <obj-attribute name="country" type="java.lang.String" db-attribute-path="country"/>
+        <obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+    </obj-entity>
+    <obj-entity name="Product" className="org.apache.cayenne.CayenneDataObject" dbEntityName="product">
+        <obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+        <obj-attribute name="price" type="java.math.BigDecimal" db-attribute-path="price"/>
+    </obj-entity>
+    <obj-entity name="Review" className="org.apache.cayenne.CayenneDataObject" dbEntityName="review">
+        <obj-attribute name="content" type="java.lang.String" db-attribute-path="content"/>
+        <obj-attribute name="firstName" type="java.lang.String" db-attribute-path="first_name"/>
+        <obj-attribute name="lastName" type="java.lang.String" db-attribute-path="last_name"/>
+        <obj-attribute name="rating" type="java.lang.Integer" db-attribute-path="rating"/>
+    </obj-entity>
+
+    <db-relationship name="products" source="producer" target="product" toMany="true">
+        <db-attribute-pair source="id" target="producer_id"/>
+    </db-relationship>
+    <db-relationship name="producer" source="product" target="producer" toMany="false">
+        <db-attribute-pair source="producer_id" target="id"/>
+    </db-relationship>
+    <db-relationship name="reviews" source="product" target="review" toMany="true">
+        <db-attribute-pair source="id" target="product_id"/>
+    </db-relationship>
+    <db-relationship name="product" source="review" target="product" toMany="false">
+        <db-attribute-pair source="product_id" target="id"/>
+    </db-relationship>
+</data-map>

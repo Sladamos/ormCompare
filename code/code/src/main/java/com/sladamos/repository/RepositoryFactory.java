@@ -13,6 +13,7 @@ public class RepositoryFactory {
             case "hibernate" -> new HibernateRepository(dbProfile);
             case "eclipselink" -> new EclipseLinkRepository(dbProfile);
             case "datanucleus" -> new DataNucleusRepository(dbProfile);
+            case "cayenne" -> new CayenneRepository(dbProfile);
             default -> throw new IllegalArgumentException("Nieznany ORM: " + repositoryName);
         };
     }

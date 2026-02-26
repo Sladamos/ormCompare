@@ -13,12 +13,14 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <postgres.version>42.7.10</postgres.version>
+        <h2.version>2.4.240</h2.version>
         <hibernate.version>6.4.4.Final</hibernate.version>
         <eclipselink.version>4.0.9</eclipselink.version>
         <datanucleus.version>6.0.10</datanucleus.version>
+        <datanucleus-api.version>6.0.1</datanucleus-api.version>
+        <cayenne.version>4.2.3</cayenne.version>
         <jmh.version>1.37</jmh.version>
-        <postgres.version>42.7.10</postgres.version>
-        <h2.version>2.4.240</h2.version>
     </properties>
 
     <dependencies>
@@ -33,6 +35,11 @@
             <version>${h2.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.apache.cayenne</groupId>
+            <artifactId>cayenne-server</artifactId>
+            <version>${cayenne.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-core</artifactId>
             <version>${datanucleus.version}</version>
@@ -40,7 +47,7 @@
         <dependency>
             <groupId>org.datanucleus</groupId>
             <artifactId>datanucleus-api-jakarta</artifactId>
-            <version>6.0.1</version>
+            <version>${datanucleus-api.version}</version>
         </dependency>
         <dependency>
             <groupId>org.datanucleus</groupId>
