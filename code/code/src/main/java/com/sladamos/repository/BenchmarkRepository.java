@@ -1,6 +1,5 @@
 package com.sladamos.repository;
 
-import com.sladamos.model.Producer;
 import com.sladamos.model.Review;
 
 public interface BenchmarkRepository {
@@ -9,5 +8,6 @@ public interface BenchmarkRepository {
     void save(Object o);
     void clearDatabase();
     Review findReviewById(Integer id);
-    Producer findProducerById(Integer id);
+    void updateProduct(Integer id, String newName);
+    void deleteProduct(Integer id);
 }

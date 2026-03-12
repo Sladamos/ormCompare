@@ -1,6 +1,6 @@
 package com.sladamos.repository;
 
-import com.sladamos.model.Producer;
+import com.sladamos.model.Product;
 import com.sladamos.model.Review;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -88,9 +88,28 @@ public class EclipseLinkRepository implements BenchmarkRepository {
     }
 
     @Override
-    public Producer findProducerById(Integer id) {
+    public void updateProduct(Integer id, String newName) {
         try (EntityManager em = emf.createEntityManager()) {
-            return em.find(Producer.class, id);
+            EntityTransaction tx = em.getTransaction();
+            tx.begin();
+            Product product = em.find(Product.class, id);
+            if (product != null) {
+                product.setName(newName);
+            }
+            tx.commit();
+        }
+    }
+
+    @Override
+    public void deleteProduct(Integer id) {
+        try (EntityManager em = emf.createEntityManager()) {
+            EntityTransaction tx = em.getTransaction();
+            tx.begin();
+            Product product = em.find(Product.class, id);
+            if (product != null) {
+                em.remove(product);
+            }
+            tx.commit();
         }
     }
 }

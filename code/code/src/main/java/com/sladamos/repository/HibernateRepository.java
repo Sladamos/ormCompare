@@ -1,6 +1,6 @@
 package com.sladamos.repository;
 
-import com.sladamos.model.Producer;
+import com.sladamos.model.Product;
 import com.sladamos.model.Review;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -76,9 +76,26 @@ public class HibernateRepository implements BenchmarkRepository {
     }
 
     @Override
-    public Producer findProducerById(Integer id) {
+    public void updateProduct(Integer id, String newName) {
         try (Session session = sessionFactory.openSession()) {
-            return session.get(Producer.class, id);
+            Transaction tx = session.beginTransaction();
+            Product product = session.get(Product.class, id);
+            if (product != null) {
+                product.setName(newName);
+            }
+            tx.commit();
+        }
+    }
+
+    @Override
+    public void deleteProduct(Integer id) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            Product product = session.get(Product.class, id);
+            if (product != null) {
+                session.remove(product);
+            }
+            tx.commit();
         }
     }
 }

@@ -80,21 +80,23 @@ public class CayenneRepository implements BenchmarkRepository {
     }
 
     @Override
-    public Producer findProducerById(Integer id) {
+    public void updateProduct(Integer id, String newName) {
         ObjectContext context = cayenneRuntime.newContext();
-        DataObject cayenneProducer =
-                (DataObject) Cayenne.objectForPK(context, "Producer", id);
-
-        if (cayenneProducer == null) {
-            return null;
+        DataObject cayenneProduct = (DataObject) Cayenne.objectForPK(context, "Product", id);
+        if (cayenneProduct != null) {
+            cayenneProduct.writeProperty("name", newName);
+            context.commitChanges();
         }
+    }
 
-        Producer p = new Producer();
-        p.setId(id);
-        p.setName((String) cayenneProducer.readProperty("name"));
-        p.setCountry((String) cayenneProducer.readProperty("country"));
-
-        return p;
+    @Override
+    public void deleteProduct(Integer id) {
+        ObjectContext context = cayenneRuntime.newContext();
+        DataObject cayenneProduct = (DataObject) Cayenne.objectForPK(context, "Product", id);
+        if (cayenneProduct != null) {
+            context.deleteObject(cayenneProduct);
+            context.commitChanges();
+        }
     }
 
     private void saveProducer(com.sladamos.model.Producer p, ObjectContext context) {

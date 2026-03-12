@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5df03e97-d042-453f-9d85-e2bf139f664b" name="Changes" comment="Working cayenne">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/benchmark/Benchmark2.java" afterDir="false" />
+    <list default="true" id="5df03e97-d042-453f-9d85-e2bf139f664b" name="Changes" comment="Working benchmark 2">
       <change afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/benchmark/Benchmark3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/0d986fb6-2cfb-4d8e-8871-b7753906f980.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/0d986fb6-2cfb-4d8e-8871-b7753906f980.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/Config.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/benchmark/Benchmark1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/benchmark/Benchmark1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/BenchmarkRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/BenchmarkRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/CayenneRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/CayenneRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/DataNucleusRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sladamos/repository/DataNucleusRepository.java" afterDir="false" />
@@ -155,7 +151,7 @@
       <workItem from="1773240450597" duration="597000" />
       <workItem from="1773263837624" duration="603000" />
       <workItem from="1773266598787" duration="3230000" />
-      <workItem from="1773343747018" duration="1400000" />
+      <workItem from="1773343747018" duration="1899000" />
     </task>
     <task id="LOCAL-00001" summary="Working first test">
       <option name="closed" value="true" />
@@ -181,7 +177,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772110169807</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Working benchmark 2">
+      <option name="closed" value="true" />
+      <created>1773347069866</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1773347069866</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -191,7 +195,8 @@
     <MESSAGE value="Working first test" />
     <MESSAGE value="EclipseLink and DataNucleus" />
     <MESSAGE value="Working cayenne" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working cayenne" />
+    <MESSAGE value="Working benchmark 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working benchmark 2" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
