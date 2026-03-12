@@ -1,5 +1,7 @@
 package com.sladamos.repository;
 
+import com.sladamos.model.Producer;
+import com.sladamos.model.Review;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -37,16 +39,13 @@ public class EclipseLinkRepository implements BenchmarkRepository {
     @Override
     public void save(Object o) {
         EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        try {
+        try (em) {
+            EntityTransaction tx = em.getTransaction();
             tx.begin();
             em.persist(o);
             tx.commit();
         } catch (Exception e) {
-            if (tx.isActive()) tx.rollback();
             throw e;
-        } finally {
-            em.close();
         }
     }
 
@@ -78,6 +77,20 @@ public class EclipseLinkRepository implements BenchmarkRepository {
         } finally {
             em.clear();
             em.close();
+        }
+    }
+
+    @Override
+    public Review findReviewById(Integer id) {
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.find(Review.class, id);
+        }
+    }
+
+    @Override
+    public Producer findProducerById(Integer id) {
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.find(Producer.class, id);
         }
     }
 }

@@ -7,13 +7,13 @@ import org.openjdk.jmh.annotations.*;
 
 import java.util.concurrent.TimeUnit;
 
-import static com.sladamos.Config.DB_PROFILE;
+import static com.sladamos.Config.*;
 
 @State(Scope.Thread)
 @BenchmarkMode(Mode.SingleShotTime)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-@Warmup(iterations = 3, time = 1)
-@Measurement(iterations = 5, time = 1)
+@Warmup(iterations = WARMUP_ITERATIONS, time = WARMUP_SECONDS)
+@Measurement(iterations = MEASUREMENT_ITERATIONS, time = MEASUREMENT_SECONDS)
 @Fork(1)
 public class Benchmark1 {
 

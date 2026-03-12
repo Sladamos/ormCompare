@@ -1,5 +1,7 @@
 package com.sladamos.repository;
 
+import com.sladamos.model.Producer;
+import com.sladamos.model.Review;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -52,7 +54,6 @@ public class HibernateRepository implements BenchmarkRepository {
             session.createNativeMutationQuery("DELETE FROM producer WHERE id > 10").executeUpdate();
             tx.commit();
 
-
             Transaction tx2 = session.beginTransaction();
             if (configFileName.contains("h2")) {
                 session.createNativeMutationQuery("ALTER TABLE producer ALTER COLUMN id RESTART WITH 11").executeUpdate();
@@ -63,11 +64,21 @@ public class HibernateRepository implements BenchmarkRepository {
                 session.createNativeMutationQuery("ALTER SEQUENCE product_id_seq RESTART WITH 1001").executeUpdate();
                 session.createNativeMutationQuery("ALTER SEQUENCE review_id_seq RESTART WITH 100001").executeUpdate();
             }
-
             tx2.commit();
+        }
+    }
 
-            session.clear();
+    @Override
+    public Review findReviewById(Integer id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(Review.class, id);
+        }
+    }
 
+    @Override
+    public Producer findProducerById(Integer id) {
+        try (Session session = sessionFactory.openSession()) {
+            return session.get(Producer.class, id);
         }
     }
 }

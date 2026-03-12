@@ -1,5 +1,7 @@
 package com.sladamos.repository;
 
+import com.sladamos.model.Producer;
+import com.sladamos.model.Review;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
@@ -94,6 +96,20 @@ public class DataNucleusRepository implements BenchmarkRepository {
             if (em.isOpen()) {
                 em.close();
             }
+        }
+    }
+
+    @Override
+    public Review findReviewById(Integer id) {
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.find(Review.class, id);
+        }
+    }
+
+    @Override
+    public Producer findProducerById(Integer id) {
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.find(Producer.class, id);
         }
     }
 }
