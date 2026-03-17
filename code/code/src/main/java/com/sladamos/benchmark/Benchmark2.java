@@ -8,7 +8,7 @@ import org.openjdk.jmh.annotations.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
-import static com.sladamos.Config.*;
+import static com.sladamos.benchmark.Config.*;
 
 @State(Scope.Thread)
 @BenchmarkMode(Mode.SingleShotTime)
