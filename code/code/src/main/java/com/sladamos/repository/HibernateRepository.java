@@ -7,6 +7,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.util.List;
+
 public class HibernateRepository implements BenchmarkRepository {
 
     private SessionFactory sessionFactory;
@@ -96,6 +98,16 @@ public class HibernateRepository implements BenchmarkRepository {
                 session.remove(product);
             }
             tx.commit();
+        }
+    }
+
+    @Override
+    public List<Product> findProductsByProducerCountry(String country) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT p FROM Product p JOIN p.producer pr WHERE pr.country = :country";
+            return session.createQuery(hql, Product.class)
+                    .setParameter("country", country)
+                    .getResultList();
         }
     }
 }

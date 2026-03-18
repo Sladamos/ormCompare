@@ -1,9 +1,9 @@
 package com.sladamos.benchmark;
 
-import com.sladamos.model.Review;
 import com.sladamos.repository.BenchmarkRepository;
 import com.sladamos.repository.RepositoryFactory;
 import org.openjdk.jmh.annotations.*;
+import org.openjdk.jmh.infra.Blackhole;
 
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
@@ -37,10 +37,10 @@ public class Benchmark2 {
     }
 
     @Benchmark
-    public void findById() {
+    public void findById(Blackhole bh) {
         for (int i = 0; i < 5000; i++) {
             int randomId = ThreadLocalRandom.current().nextInt(1, 100001);
-            Review r = repository.findReviewById(randomId);
+            bh.consume(repository.findReviewById(randomId));
         }
     }
 }

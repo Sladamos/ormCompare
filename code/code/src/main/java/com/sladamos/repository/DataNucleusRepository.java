@@ -11,6 +11,7 @@ import org.datanucleus.store.connection.ManagedConnection;
 
 import java.sql.Connection;
 import java.sql.Statement;
+import java.util.List;
 
 public class DataNucleusRepository implements BenchmarkRepository {
 
@@ -129,6 +130,16 @@ public class DataNucleusRepository implements BenchmarkRepository {
                 em.remove(product);
             }
             tx.commit();
+        }
+    }
+
+    @Override
+    public List<Product> findProductsByProducerCountry(String country) {
+        try (EntityManager em = emf.createEntityManager()) {
+            String jpql = "SELECT p FROM Product p JOIN p.producer pr WHERE pr.country = :country";
+            return em.createQuery(jpql, Product.class)
+                    .setParameter("country", country)
+                    .getResultList();
         }
     }
 }

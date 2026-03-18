@@ -51,4 +51,10 @@
     <db-relationship name="product" source="review" target="product" toMany="false">
         <db-attribute-pair source="product_id" target="id"/>
     </db-relationship>
+
+    <obj-relationship name="products" source="Producer" target="Product" db-relationship-path="products"/>
+    <obj-relationship name="producer" source="Product" target="Producer" db-relationship-path="producer"/>
+    <obj-relationship name="reviews" source="Product" target="Review" db-relationship-path="reviews"/>
+    <obj-relationship name="product" source="Review" target="Product" db-relationship-path="product"/>
+
 </data-map>

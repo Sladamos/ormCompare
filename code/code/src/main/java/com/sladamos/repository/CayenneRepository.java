@@ -5,7 +5,12 @@ import com.sladamos.model.Product;
 import com.sladamos.model.Review;
 import org.apache.cayenne.*;
 import org.apache.cayenne.configuration.server.ServerRuntime;
+import org.apache.cayenne.exp.ExpressionFactory;
+import org.apache.cayenne.query.ObjectSelect;
 import org.apache.cayenne.query.SQLExec;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CayenneRepository implements BenchmarkRepository {
 
@@ -97,6 +102,25 @@ public class CayenneRepository implements BenchmarkRepository {
             context.deleteObject(cayenneProduct);
             context.commitChanges();
         }
+    }
+
+    @Override
+    public List<Product> findProductsByProducerCountry(String country) {
+        ObjectContext context = cayenneRuntime.newContext();
+
+        List<DataObject> results = ObjectSelect.query(DataObject.class, "Product")
+                .where(ExpressionFactory.exp("producer.country = $country", country))
+                .select(context);
+
+        List<Product> mappedResults = new ArrayList<>();
+        for(DataObject row : results) {
+            Product p = new Product();
+            p.setId(Cayenne.intPKForObject(row));
+            p.setName((String) row.readProperty("name"));
+            p.setPrice((java.math.BigDecimal) row.readProperty("price"));
+            mappedResults.add(p);
+        }
+        return mappedResults;
     }
 
     private void saveProducer(com.sladamos.model.Producer p, ObjectContext context) {

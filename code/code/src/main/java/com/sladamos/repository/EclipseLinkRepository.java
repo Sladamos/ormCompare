@@ -7,6 +7,8 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
+import java.util.List;
+
 public class EclipseLinkRepository implements BenchmarkRepository {
 
     private EntityManagerFactory emf;
@@ -110,6 +112,16 @@ public class EclipseLinkRepository implements BenchmarkRepository {
                 em.remove(product);
             }
             tx.commit();
+        }
+    }
+
+    @Override
+    public List<Product> findProductsByProducerCountry(String country) {
+        try (EntityManager em = emf.createEntityManager()) {
+            String jpql = "SELECT p FROM Product p JOIN p.producer pr WHERE pr.country = :country";
+            return em.createQuery(jpql, Product.class)
+                    .setParameter("country", country)
+                    .getResultList();
         }
     }
 }
