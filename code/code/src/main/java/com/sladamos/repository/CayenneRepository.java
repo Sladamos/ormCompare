@@ -123,6 +123,26 @@ public class CayenneRepository implements BenchmarkRepository {
         return mappedResults;
     }
 
+    @Override
+    public List<Producer> findProducersWithTopReviews(Integer rating) {
+        ObjectContext context = cayenneRuntime.newContext();
+
+        List<DataObject> results = ObjectSelect.query(DataObject.class, "Producer")
+                .where(ExpressionFactory.exp("products.reviews.rating = $rating", rating))
+                .distinct()
+                .select(context);
+
+        List<Producer> mappedResults = new ArrayList<>();
+        for(DataObject row : results) {
+            Producer p = new Producer();
+            p.setId(Cayenne.intPKForObject(row));
+            p.setName((String) row.readProperty("name"));
+            p.setCountry((String) row.readProperty("country"));
+            mappedResults.add(p);
+        }
+        return mappedResults;
+    }
+
     private void saveProducer(com.sladamos.model.Producer p, ObjectContext context) {
         CayenneDataObject cayenneProducer = new CayenneDataObject();
         cayenneProducer.setObjectId(ObjectId.of("Producer"));

@@ -33,6 +33,7 @@ public class Benchmark1 {
 
     @TearDown(Level.Trial)
     public void tearDown() {
+        this.repository.clearDatabase();
         this.repository.tearDown();
     }
 

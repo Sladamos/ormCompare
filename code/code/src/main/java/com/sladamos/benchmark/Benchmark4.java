@@ -32,6 +32,7 @@ public class Benchmark4 {
 
     @TearDown(Level.Trial)
     public void tearDownTrial() {
+        this.repository.clearDatabase();
         this.repository.tearDown();
     }
 

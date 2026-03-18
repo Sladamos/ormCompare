@@ -1,5 +1,6 @@
 package com.sladamos.repository;
 
+import com.sladamos.model.Producer;
 import com.sladamos.model.Product;
 import com.sladamos.model.Review;
 import org.hibernate.Session;
@@ -107,6 +108,16 @@ public class HibernateRepository implements BenchmarkRepository {
             String hql = "SELECT p FROM Product p JOIN p.producer pr WHERE pr.country = :country";
             return session.createQuery(hql, Product.class)
                     .setParameter("country", country)
+                    .getResultList();
+        }
+    }
+
+    @Override
+    public List<Producer> findProducersWithTopReviews(Integer rating) {
+        try (Session session = sessionFactory.openSession()) {
+            String hql = "SELECT DISTINCT pr FROM Producer pr JOIN pr.products p JOIN p.reviews r WHERE r.rating = :rating";
+            return session.createQuery(hql, Producer.class)
+                    .setParameter("rating", rating)
                     .getResultList();
         }
     }

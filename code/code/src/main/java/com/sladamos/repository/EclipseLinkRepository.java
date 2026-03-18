@@ -1,5 +1,6 @@
 package com.sladamos.repository;
 
+import com.sladamos.model.Producer;
 import com.sladamos.model.Product;
 import com.sladamos.model.Review;
 import jakarta.persistence.EntityManager;
@@ -121,6 +122,16 @@ public class EclipseLinkRepository implements BenchmarkRepository {
             String jpql = "SELECT p FROM Product p JOIN p.producer pr WHERE pr.country = :country";
             return em.createQuery(jpql, Product.class)
                     .setParameter("country", country)
+                    .getResultList();
+        }
+    }
+
+    @Override
+    public List<Producer> findProducersWithTopReviews(Integer rating) {
+        try (EntityManager em = emf.createEntityManager()) {
+            String jpql = "SELECT DISTINCT pr FROM Producer pr JOIN pr.products p JOIN p.reviews r WHERE r.rating = :rating";
+            return em.createQuery(jpql, Producer.class)
+                    .setParameter("rating", rating)
                     .getResultList();
         }
     }
