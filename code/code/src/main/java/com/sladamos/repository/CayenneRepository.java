@@ -143,6 +143,37 @@ public class CayenneRepository implements BenchmarkRepository {
         return mappedResults;
     }
 
+    @Override
+    public long countReviewsNPlusOne() {
+        org.apache.cayenne.ObjectContext context = cayenneRuntime.newContext();
+        List<org.apache.cayenne.DataObject> products = org.apache.cayenne.query.ObjectSelect.query(org.apache.cayenne.DataObject.class, "Product")
+                .where(org.apache.cayenne.exp.ExpressionFactory.exp("db:id <= " + PRODUCTS_REVIEWS_JOIN_COUNT))
+                .select(context);
+
+        long count = 0;
+        for (org.apache.cayenne.DataObject p : products) {
+            List<?> reviews = (List<?>) p.readProperty("reviews");
+            count += reviews.size();
+        }
+        return count;
+    }
+
+    @Override
+    public long countReviewsJoinFetch() {
+        org.apache.cayenne.ObjectContext context = cayenneRuntime.newContext();
+        List<org.apache.cayenne.DataObject> products = org.apache.cayenne.query.ObjectSelect.query(org.apache.cayenne.DataObject.class, "Product")
+                .where(org.apache.cayenne.exp.ExpressionFactory.exp("db:id <= " + PRODUCTS_REVIEWS_JOIN_COUNT))
+                .prefetch("reviews", org.apache.cayenne.query.PrefetchTreeNode.JOINT_PREFETCH_SEMANTICS)
+                .select(context);
+
+        long count = 0;
+        for (org.apache.cayenne.DataObject p : products) {
+            List<?> reviews = (List<?>) p.readProperty("reviews");
+            count += reviews.size();
+        }
+        return count;
+    }
+
     private void saveProducer(com.sladamos.model.Producer p, ObjectContext context) {
         CayenneDataObject cayenneProducer = new CayenneDataObject();
         cayenneProducer.setObjectId(ObjectId.of("Producer"));

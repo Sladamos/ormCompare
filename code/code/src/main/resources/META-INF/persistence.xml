@@ -17,6 +17,7 @@
             <property name="eclipselink.logging.level" value="OFF"/>
             <property name="eclipselink.jdbc.read-connections.min" value="5"/>
             <property name="eclipselink.jdbc.write-connections.min" value="5"/>
+            <property name="eclipselink.cache.shared.default" value="false"/>
         </properties>
     </persistence-unit>
 
@@ -33,6 +34,7 @@
 
             <property name="eclipselink.logging.level" value="OFF"/>
             <property name="eclipselink.target-database" value="PostgreSQL"/>
+            <property name="eclipselink.cache.shared.default" value="false"/>
         </properties>
     </persistence-unit>
 

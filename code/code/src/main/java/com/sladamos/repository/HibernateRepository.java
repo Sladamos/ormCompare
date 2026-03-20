@@ -121,4 +121,28 @@ public class HibernateRepository implements BenchmarkRepository {
                     .getResultList();
         }
     }
+
+    @Override
+    public long countReviewsNPlusOne() {
+        try (Session session = sessionFactory.openSession()) {
+            List<Product> products = session.createQuery("SELECT p FROM Product p WHERE p.id <= " + PRODUCTS_REVIEWS_JOIN_COUNT, Product.class).getResultList();
+            long count = 0;
+            for (Product p : products) {
+                count += p.getReviews().size();
+            }
+            return count;
+        }
+    }
+
+    @Override
+    public long countReviewsJoinFetch() {
+        try (Session session = sessionFactory.openSession()) {
+            List<Product> products = session.createQuery("SELECT DISTINCT p FROM Product p LEFT JOIN FETCH p.reviews WHERE p.id <= " + PRODUCTS_REVIEWS_JOIN_COUNT, Product.class).getResultList();
+            long count = 0;
+            for (Product p : products) {
+                count += p.getReviews().size();
+            }
+            return count;
+        }
+    }
 }

@@ -135,4 +135,28 @@ public class EclipseLinkRepository implements BenchmarkRepository {
                     .getResultList();
         }
     }
+
+    @Override
+    public long countReviewsNPlusOne() {
+        try (EntityManager em = emf.createEntityManager()) {
+            List<Product> products = em.createQuery("SELECT p FROM Product p WHERE p.id <= " + PRODUCTS_REVIEWS_JOIN_COUNT, Product.class).getResultList();
+            long count = 0;
+            for (Product p : products) {
+                count += p.getReviews().size();
+            }
+            return count;
+        }
+    }
+
+    @Override
+    public long countReviewsJoinFetch() {
+        try (EntityManager em = emf.createEntityManager()) {
+            List<Product> products = em.createQuery("SELECT DISTINCT p FROM Product p LEFT JOIN FETCH p.reviews WHERE p.id <= " + PRODUCTS_REVIEWS_JOIN_COUNT, Product.class).getResultList();
+            long count = 0;
+            for (Product p : products) {
+                count += p.getReviews().size();
+            }
+            return count;
+        }
+    }
 }

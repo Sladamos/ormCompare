@@ -16,4 +16,8 @@ public interface BenchmarkRepository {
     void deleteProduct(Integer id);
     List<Product> findProductsByProducerCountry(String country);
     List<Producer> findProducersWithTopReviews(Integer rating);
+    long countReviewsNPlusOne();
+    long countReviewsJoinFetch();
+
+    long PRODUCTS_REVIEWS_JOIN_COUNT = 50;
 }
