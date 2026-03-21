@@ -40,9 +40,8 @@ public class Benchmark1 {
     @Benchmark
     public void singleInsert() {
         for (int i = 0; i < 1000; i++) {
-            counter++;
             Producer p = new Producer();
-            p.setName("Benchmark1 " + counter);
+            p.setName("Benchmark1 " + counter++);
             p.setCountry("Benchmark1Country");
             repository.save(p);
         }

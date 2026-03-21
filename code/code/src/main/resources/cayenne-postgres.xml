@@ -10,7 +10,7 @@
         <map-ref name="datamap"/>
         <data-source>
             <driver value="org.postgresql.Driver"/>
-            <url value="jdbc:postgresql://localhost:5432/postgres"/>
+            <url value="jdbc:postgresql://localhost:5432/postgres?reWriteBatchedInserts=true"/>
             <connectionPool min="5" max="20"/>
             <login userName="postgres" password="secret"/>
         </data-source>

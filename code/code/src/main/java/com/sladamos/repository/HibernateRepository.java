@@ -56,18 +56,6 @@ public class HibernateRepository implements BenchmarkRepository {
             session.createNativeMutationQuery("DELETE FROM product WHERE id > 1000").executeUpdate();
             session.createNativeMutationQuery("DELETE FROM producer WHERE id > 10").executeUpdate();
             tx.commit();
-
-            Transaction tx2 = session.beginTransaction();
-            if (configFileName.contains("h2")) {
-                session.createNativeMutationQuery("ALTER TABLE producer ALTER COLUMN id RESTART WITH 11").executeUpdate();
-                session.createNativeMutationQuery("ALTER TABLE product ALTER COLUMN id RESTART WITH 1001").executeUpdate();
-                session.createNativeMutationQuery("ALTER TABLE review ALTER COLUMN id RESTART WITH 100001").executeUpdate();
-            } else {
-                session.createNativeMutationQuery("ALTER SEQUENCE producer_id_seq RESTART WITH 11").executeUpdate();
-                session.createNativeMutationQuery("ALTER SEQUENCE product_id_seq RESTART WITH 1001").executeUpdate();
-                session.createNativeMutationQuery("ALTER SEQUENCE review_id_seq RESTART WITH 100001").executeUpdate();
-            }
-            tx2.commit();
         }
     }
 
@@ -143,6 +131,21 @@ public class HibernateRepository implements BenchmarkRepository {
                 count += p.getReviews().size();
             }
             return count;
+        }
+    }
+
+    @Override
+    public void insertBatched(List<Product> products, int batchSize) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            for (int i = 0; i < products.size(); i++) {
+                session.persist(products.get(i));
+                if (i > 0 && (i + 1) % batchSize == 0) {
+                    session.flush();
+                    session.clear();
+                }
+            }
+            tx.commit();
         }
     }
 }

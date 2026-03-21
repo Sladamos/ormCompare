@@ -18,6 +18,7 @@ public interface BenchmarkRepository {
     List<Producer> findProducersWithTopReviews(Integer rating);
     long countReviewsNPlusOne();
     long countReviewsJoinFetch();
+    void insertBatched(List<Product> products, int batchSize);
 
     long PRODUCTS_REVIEWS_JOIN_COUNT = 50;
 }

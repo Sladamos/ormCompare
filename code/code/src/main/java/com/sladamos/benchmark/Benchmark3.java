@@ -6,6 +6,8 @@ import com.sladamos.repository.RepositoryFactory;
 import org.openjdk.jmh.annotations.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static com.sladamos.benchmark.Config.*;
@@ -25,6 +27,8 @@ public class Benchmark3 {
 
     private BenchmarkRepository repository;
 
+    private List<Integer> generatedIds;
+
     @Setup(Level.Trial)
     public void setupTrial() {
         this.repository = repositoryFactory.getBenchmarkRepository(ormProvider);
@@ -39,12 +43,14 @@ public class Benchmark3 {
     @Setup(Level.Iteration)
     public void setupIteration() {
         repository.clearDatabase();
+        generatedIds = new ArrayList<>();
 
         for (int i = 0; i < 1000; i++) {
             Product p = new Product();
             p.setName("Benchmark3 " + i);
             p.setPrice(new BigDecimal("10.00"));
             repository.save(p);
+            generatedIds.add(p.getId());
         }
     }
 
@@ -55,15 +61,15 @@ public class Benchmark3 {
 
     @Benchmark
     public void updateEntity() {
-        for (int i = 1001; i <= 1500; i++) {
-            repository.updateProduct(i, "Benchmark3_updated " + i);
+        for (Integer id : generatedIds) {
+            repository.updateProduct(id, "Benchmark3_updated " + id);
         }
     }
 
     @Benchmark
     public void deleteEntity() {
-        for (int i = 1001; i <= 1500; i++) {
-            repository.deleteProduct(i);
+        for (Integer id : generatedIds) {
+            repository.deleteProduct(id);
         }
     }
 }

@@ -10,7 +10,7 @@
         <map-ref name="datamap"/>
         <data-source>
             <driver value="org.h2.Driver"/>
-            <url value="jdbc:h2:./testdb;MODE=PostgreSQL"/>
+            <url value="jdbc:h2:../../data/testdb;MODE=PostgreSQL"/>
             <connectionPool min="1" max="5"/>
             <login userName="sa" password=""/>
         </data-source>

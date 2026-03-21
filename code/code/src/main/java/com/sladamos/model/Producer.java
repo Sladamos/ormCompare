@@ -8,7 +8,8 @@ import java.util.List;
 public class Producer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "producer_seq")
+    @SequenceGenerator(name = "producer_seq", sequenceName = "producer_id_seq", allocationSize = 100)
     private Integer id;
 
     @Column(nullable = false)

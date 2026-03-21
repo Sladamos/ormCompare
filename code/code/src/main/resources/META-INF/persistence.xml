@@ -9,7 +9,7 @@
         <class>com.sladamos.model.Product</class>
         <class>com.sladamos.model.Review</class>
         <properties>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres?reWriteBatchedInserts=true"/>
             <property name="jakarta.persistence.jdbc.user" value="postgres"/>
             <property name="jakarta.persistence.jdbc.password" value="secret"/>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
@@ -17,6 +17,8 @@
             <property name="eclipselink.logging.level" value="OFF"/>
             <property name="eclipselink.jdbc.read-connections.min" value="5"/>
             <property name="eclipselink.jdbc.write-connections.min" value="5"/>
+            <property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
+            <property name="eclipselink.jdbc.batch-writing.size" value="100"/>
             <property name="eclipselink.cache.shared.default" value="false"/>
         </properties>
     </persistence-unit>
@@ -27,13 +29,15 @@
         <class>com.sladamos.model.Product</class>
         <class>com.sladamos.model.Review</class>
         <properties>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:./testdb;MODE=PostgreSQL"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:../../data/testdb;MODE=PostgreSQL"/>
             <property name="jakarta.persistence.jdbc.user" value="sa"/>
             <property name="jakarta.persistence.jdbc.password" value=""/>
             <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
 
             <property name="eclipselink.logging.level" value="OFF"/>
             <property name="eclipselink.target-database" value="PostgreSQL"/>
+            <property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
+            <property name="eclipselink.jdbc.batch-writing.size" value="100"/>
             <property name="eclipselink.cache.shared.default" value="false"/>
         </properties>
     </persistence-unit>
@@ -45,7 +49,7 @@
         <class>com.sladamos.model.Review</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres?reWriteBatchedInserts=true"/>
             <property name="jakarta.persistence.jdbc.user" value="postgres"/>
             <property name="jakarta.persistence.jdbc.password" value="secret"/>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
@@ -54,6 +58,8 @@
             <property name="datanucleus.schema.autoCreateAll" value="false"/>
             <property name="datanucleus.schema.validateTables" value="false"/>
             <property name="datanucleus.rdbms.datastoreAdapterClassName" value="org.datanucleus.store.rdbms.adapter.PostgreSQLAdapter"/>
+            <property name="datanucleus.rdbms.statementBatchLimit" value="100"/>
+            <property name="datanucleus.valuegeneration.sequence.allocationSize" value="100"/>
         </properties>
     </persistence-unit>
 
@@ -64,12 +70,14 @@
         <class>com.sladamos.model.Review</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:./testdb;MODE=PostgreSQL"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:../../data/testdb;MODE=PostgreSQL"/>
             <property name="jakarta.persistence.jdbc.user" value="sa"/>
             <property name="jakarta.persistence.jdbc.password" value=""/>
             <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
 
             <property name="datanucleus.schema.autoCreateAll" value="false"/>
+            <property name="datanucleus.rdbms.statementBatchLimit" value="100"/>
+            <property name="datanucleus.valuegeneration.sequence.allocationSize" value="100"/>
         </properties>
     </persistence-unit>
 

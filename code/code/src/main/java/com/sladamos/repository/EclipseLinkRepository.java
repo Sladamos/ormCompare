@@ -62,19 +62,6 @@ public class EclipseLinkRepository implements BenchmarkRepository {
             em.createNativeQuery("DELETE FROM product WHERE id > 1000").executeUpdate();
             em.createNativeQuery("DELETE FROM producer WHERE id > 10").executeUpdate();
             tx.commit();
-
-            tx.begin();
-            if (persistenceUnitName.contains("h2")) {
-                em.createNativeQuery("ALTER TABLE producer ALTER COLUMN id RESTART WITH 11").executeUpdate();
-                em.createNativeQuery("ALTER TABLE product ALTER COLUMN id RESTART WITH 1001").executeUpdate();
-                em.createNativeQuery("ALTER TABLE review ALTER COLUMN id RESTART WITH 100001").executeUpdate();
-            } else {
-                em.createNativeQuery("ALTER SEQUENCE producer_id_seq RESTART WITH 11").executeUpdate();
-                em.createNativeQuery("ALTER SEQUENCE product_id_seq RESTART WITH 1001").executeUpdate();
-                em.createNativeQuery("ALTER SEQUENCE review_id_seq RESTART WITH 100001").executeUpdate();
-            }
-            tx.commit();
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -157,6 +144,22 @@ public class EclipseLinkRepository implements BenchmarkRepository {
                 count += p.getReviews().size();
             }
             return count;
+        }
+    }
+
+    @Override
+    public void insertBatched(List<Product> products, int batchSize) {
+        try (EntityManager em = emf.createEntityManager()) {
+            EntityTransaction tx = em.getTransaction();
+            tx.begin();
+            for (int i = 0; i < products.size(); i++) {
+                em.persist(products.get(i));
+                if (i > 0 && (i + 1) % batchSize == 0) {
+                    em.flush();
+                    em.clear();
+                }
+            }
+            tx.commit();
         }
     }
 }

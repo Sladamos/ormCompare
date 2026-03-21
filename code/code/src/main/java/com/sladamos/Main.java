@@ -23,7 +23,6 @@ public class Main {
                 .result(resultFile)
                 .addProfiler("gc")
                 .addProfiler("comp")
-                .addProfiler("stack")
                 .build();
 
         new Runner(opt).run();

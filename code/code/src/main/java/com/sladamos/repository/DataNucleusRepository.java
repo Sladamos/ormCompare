@@ -74,16 +74,6 @@ public class DataNucleusRepository implements BenchmarkRepository {
                     stmt.execute("DELETE FROM review WHERE id > 100000");
                     stmt.execute("DELETE FROM product WHERE id > 1000");
                     stmt.execute("DELETE FROM producer WHERE id > 10");
-
-                    if (persistenceUnitName.contains("h2")) {
-                        stmt.execute("ALTER TABLE producer ALTER COLUMN id RESTART WITH 11");
-                        stmt.execute("ALTER TABLE product ALTER COLUMN id RESTART WITH 1001");
-                        stmt.execute("ALTER TABLE review ALTER COLUMN id RESTART WITH 100001");
-                    } else {
-                        stmt.execute("ALTER SEQUENCE producer_id_seq RESTART WITH 11");
-                        stmt.execute("ALTER SEQUENCE product_id_seq RESTART WITH 1001");
-                        stmt.execute("ALTER SEQUENCE review_id_seq RESTART WITH 100001");
-                    }
                 }
             } finally {
                 mc.release();
@@ -175,6 +165,22 @@ public class DataNucleusRepository implements BenchmarkRepository {
                 count += p.getReviews().size();
             }
             return count;
+        }
+    }
+
+    @Override
+    public void insertBatched(List<Product> products, int batchSize) {
+        try (EntityManager em = emf.createEntityManager()) {
+            EntityTransaction tx = em.getTransaction();
+            tx.begin();
+            for (int i = 0; i < products.size(); i++) {
+                em.persist(products.get(i));
+                if (i > 0 && (i + 1) % batchSize == 0) {
+                    em.flush();
+                    em.clear();
+                }
+            }
+            tx.commit();
         }
     }
 }

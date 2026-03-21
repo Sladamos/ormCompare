@@ -36,15 +36,25 @@ public class CayenneRepository implements BenchmarkRepository {
     @Override
     public void save(Object o) {
         ObjectContext context = cayenneRuntime.newContext();
-
+        CayenneDataObject savedObj = saveObject(o, context);
+        context.commitChanges();
+        int generatedId = Cayenne.intPKForObject(savedObj);
         switch (o) {
+            case Producer p -> p.setId(generatedId);
+            case Product p -> p.setId(generatedId);
+            case Review r -> r.setId(generatedId);
+            default -> {}
+        }
+
+    }
+
+    private CayenneDataObject saveObject(Object o, ObjectContext context) {
+        return switch (o) {
             case Producer p -> saveProducer(p, context);
             case Product p -> saveProduct(p, context);
             case Review r -> saveReview(r, context);
             default -> throw new IllegalArgumentException("Cayenne nie obsługuje tego typu obiektu: " + o.getClass().getName());
-        }
-
-        context.commitChanges();
+        };
     }
 
     @Override
@@ -53,16 +63,6 @@ public class CayenneRepository implements BenchmarkRepository {
         SQLExec.query("DELETE FROM review WHERE id > 100000").execute(context);
         SQLExec.query("DELETE FROM product WHERE id > 1000").execute(context);
         SQLExec.query("DELETE FROM producer WHERE id > 10").execute(context);
-
-        if (profile.contains("h2")) {
-            SQLExec.query("ALTER TABLE producer ALTER COLUMN id RESTART WITH 11").execute(context);
-            SQLExec.query("ALTER TABLE product ALTER COLUMN id RESTART WITH 1001").execute(context);
-            SQLExec.query("ALTER TABLE review ALTER COLUMN id RESTART WITH 100001").execute(context);
-        } else {
-            SQLExec.query("ALTER SEQUENCE producer_id_seq RESTART WITH 11").execute(context);
-            SQLExec.query("ALTER SEQUENCE product_id_seq RESTART WITH 1001").execute(context);
-            SQLExec.query("ALTER SEQUENCE review_id_seq RESTART WITH 100001").execute(context);
-        }
     }
 
     @Override
@@ -174,16 +174,37 @@ public class CayenneRepository implements BenchmarkRepository {
         return count;
     }
 
-    private void saveProducer(com.sladamos.model.Producer p, ObjectContext context) {
+    @Override
+    public void insertBatched(List<Product> products, int batchSize) {
+        org.apache.cayenne.ObjectContext context = cayenneRuntime.newContext();
+        for (int i = 0; i < products.size(); i++) {
+            Product p = products.get(i);
+            org.apache.cayenne.CayenneDataObject cayenneProduct = new org.apache.cayenne.CayenneDataObject();
+            cayenneProduct.setObjectId(org.apache.cayenne.ObjectId.of("Product"));
+            context.registerNewObject(cayenneProduct);
+            cayenneProduct.writeProperty("name", p.getName());
+            cayenneProduct.writeProperty("price", p.getPrice());
+
+            if (i > 0 && (i + 1) % batchSize == 0) {
+                context.commitChanges();
+            }
+        }
+        if (context.hasChanges()) {
+            context.commitChanges();
+        }
+    }
+
+    private CayenneDataObject saveProducer(com.sladamos.model.Producer p, ObjectContext context) {
         CayenneDataObject cayenneProducer = new CayenneDataObject();
         cayenneProducer.setObjectId(ObjectId.of("Producer"));
         context.registerNewObject(cayenneProducer);
 
         cayenneProducer.writeProperty("name", p.getName());
         cayenneProducer.writeProperty("country", p.getCountry());
+        return cayenneProducer;
     }
 
-    private void saveProduct(Product p, ObjectContext context) {
+    private CayenneDataObject saveProduct(Product p, ObjectContext context) {
         CayenneDataObject cayenneProduct = new CayenneDataObject();
         cayenneProduct.setObjectId(ObjectId.of("Product"));
         context.registerNewObject(cayenneProduct);
@@ -195,9 +216,10 @@ public class CayenneRepository implements BenchmarkRepository {
             DataObject dbProducer = (DataObject) Cayenne.objectForPK(context, "Producer", p.getProducer().getId());
             cayenneProduct.setToOneTarget("producer", dbProducer, true);
         }
+        return cayenneProduct;
     }
 
-    private void saveReview(Review r, ObjectContext context) {
+    private CayenneDataObject saveReview(Review r, ObjectContext context) {
         CayenneDataObject cayenneReview = new CayenneDataObject();
         cayenneReview.setObjectId(ObjectId.of("Review"));
         context.registerNewObject(cayenneReview);
@@ -211,5 +233,6 @@ public class CayenneRepository implements BenchmarkRepository {
             DataObject dbProduct = (DataObject) Cayenne.objectForPK(context, "Product", r.getProduct().getId());
             cayenneReview.setToOneTarget("product", dbProduct, true);
         }
+        return cayenneReview;
     }
 }
