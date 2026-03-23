@@ -29,7 +29,7 @@
         <class>com.sladamos.model.Product</class>
         <class>com.sladamos.model.Review</class>
         <properties>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:../../data/testdb;MODE=PostgreSQL"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:../../data/h2/testdb;MODE=PostgreSQL"/>
             <property name="jakarta.persistence.jdbc.user" value="sa"/>
             <property name="jakarta.persistence.jdbc.password" value=""/>
             <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
@@ -70,7 +70,7 @@
         <class>com.sladamos.model.Review</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
-            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:../../data/testdb;MODE=PostgreSQL"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:../../data/h2/testdb;MODE=PostgreSQL"/>
             <property name="jakarta.persistence.jdbc.user" value="sa"/>
             <property name="jakarta.persistence.jdbc.password" value=""/>
             <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>

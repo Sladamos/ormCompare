@@ -9,6 +9,7 @@ import org.apache.cayenne.exp.ExpressionFactory;
 import org.apache.cayenne.query.ObjectSelect;
 import org.apache.cayenne.query.SQLExec;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -147,7 +148,7 @@ public class CayenneRepository implements BenchmarkRepository {
     public long countReviewsNPlusOne() {
         org.apache.cayenne.ObjectContext context = cayenneRuntime.newContext();
         List<org.apache.cayenne.DataObject> products = org.apache.cayenne.query.ObjectSelect.query(org.apache.cayenne.DataObject.class, "Product")
-                .where(org.apache.cayenne.exp.ExpressionFactory.exp("db:id <= " + PRODUCTS_REVIEWS_JOIN_COUNT))
+                .where(org.apache.cayenne.exp.ExpressionFactory.exp("db:id <= " + PRODUCTS_REVIEWS_JOIN_COUNT_EAGER_LAZY))
                 .select(context);
 
         long count = 0;
@@ -162,7 +163,7 @@ public class CayenneRepository implements BenchmarkRepository {
     public long countReviewsJoinFetch() {
         org.apache.cayenne.ObjectContext context = cayenneRuntime.newContext();
         List<org.apache.cayenne.DataObject> products = org.apache.cayenne.query.ObjectSelect.query(org.apache.cayenne.DataObject.class, "Product")
-                .where(org.apache.cayenne.exp.ExpressionFactory.exp("db:id <= " + PRODUCTS_REVIEWS_JOIN_COUNT))
+                .where(org.apache.cayenne.exp.ExpressionFactory.exp("db:id <= " + PRODUCTS_REVIEWS_JOIN_COUNT_EAGER_LAZY))
                 .prefetch("reviews", org.apache.cayenne.query.PrefetchTreeNode.JOINT_PREFETCH_SEMANTICS)
                 .select(context);
 
@@ -192,6 +193,26 @@ public class CayenneRepository implements BenchmarkRepository {
         if (context.hasChanges()) {
             context.commitChanges();
         }
+    }
+
+    @Override
+    public void bulkUpdateJpql(Integer producerId) {
+        ObjectContext context = cayenneRuntime.newContext();
+        SQLExec.query("UPDATE product SET price = price * 1.1 WHERE producer_id = " + producerId).execute(context);
+    }
+
+    @Override
+    public void bulkUpdateInLoop(Integer producerId) {
+        ObjectContext context = cayenneRuntime.newContext();
+        List<DataObject> products = ObjectSelect.query(DataObject.class, "Product")
+                .where(ExpressionFactory.exp("producer.id = $id", producerId))
+                .select(context);
+
+        for (DataObject p : products) {
+            BigDecimal oldPrice = (BigDecimal) p.readProperty("price");
+            p.writeProperty("price", oldPrice.multiply(new BigDecimal("1.1")));
+        }
+        context.commitChanges();
     }
 
     private CayenneDataObject saveProducer(com.sladamos.model.Producer p, ObjectContext context) {

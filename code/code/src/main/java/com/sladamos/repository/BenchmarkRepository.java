@@ -19,6 +19,8 @@ public interface BenchmarkRepository {
     long countReviewsNPlusOne();
     long countReviewsJoinFetch();
     void insertBatched(List<Product> products, int batchSize);
+    void bulkUpdateJpql(Integer producerId);
+    void bulkUpdateInLoop(Integer producerId);
 
-    long PRODUCTS_REVIEWS_JOIN_COUNT = 50;
+    long PRODUCTS_REVIEWS_JOIN_COUNT_EAGER_LAZY = 50;
 }

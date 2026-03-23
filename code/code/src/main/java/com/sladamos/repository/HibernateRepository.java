@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class HibernateRepository implements BenchmarkRepository {
@@ -113,7 +114,7 @@ public class HibernateRepository implements BenchmarkRepository {
     @Override
     public long countReviewsNPlusOne() {
         try (Session session = sessionFactory.openSession()) {
-            List<Product> products = session.createQuery("SELECT p FROM Product p WHERE p.id <= " + PRODUCTS_REVIEWS_JOIN_COUNT, Product.class).getResultList();
+            List<Product> products = session.createQuery("SELECT p FROM Product p WHERE p.id <= " + PRODUCTS_REVIEWS_JOIN_COUNT_EAGER_LAZY, Product.class).getResultList();
             long count = 0;
             for (Product p : products) {
                 count += p.getReviews().size();
@@ -125,7 +126,7 @@ public class HibernateRepository implements BenchmarkRepository {
     @Override
     public long countReviewsJoinFetch() {
         try (Session session = sessionFactory.openSession()) {
-            List<Product> products = session.createQuery("SELECT DISTINCT p FROM Product p LEFT JOIN FETCH p.reviews WHERE p.id <= " + PRODUCTS_REVIEWS_JOIN_COUNT, Product.class).getResultList();
+            List<Product> products = session.createQuery("SELECT DISTINCT p FROM Product p LEFT JOIN FETCH p.reviews WHERE p.id <= " + PRODUCTS_REVIEWS_JOIN_COUNT_EAGER_LAZY, Product.class).getResultList();
             long count = 0;
             for (Product p : products) {
                 count += p.getReviews().size();
@@ -144,6 +145,31 @@ public class HibernateRepository implements BenchmarkRepository {
                     session.flush();
                     session.clear();
                 }
+            }
+            tx.commit();
+        }
+    }
+
+    @Override
+    public void bulkUpdateJpql(Integer producerId) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            session.createMutationQuery("UPDATE Product p SET p.price = p.price * 1.1 WHERE p.producer.id = :pid")
+                    .setParameter("pid", producerId)
+                    .executeUpdate();
+            tx.commit();
+        }
+    }
+
+    @Override
+    public void bulkUpdateInLoop(Integer producerId) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            List<Product> products = session.createQuery("SELECT p FROM Product p WHERE p.producer.id = :pid", Product.class)
+                    .setParameter("pid", producerId)
+                    .getResultList();
+            for (Product p : products) {
+                p.setPrice(p.getPrice().multiply(new BigDecimal("1.1")));
             }
             tx.commit();
         }

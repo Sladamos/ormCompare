@@ -10,6 +10,7 @@ import jakarta.persistence.Persistence;
 import org.datanucleus.ExecutionContext;
 import org.datanucleus.store.connection.ManagedConnection;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.List;
@@ -147,7 +148,7 @@ public class DataNucleusRepository implements BenchmarkRepository {
     @Override
     public long countReviewsNPlusOne() {
         try (EntityManager em = emf.createEntityManager()) {
-            List<Product> products = em.createQuery("SELECT p FROM Product p WHERE p.id <= " + PRODUCTS_REVIEWS_JOIN_COUNT, Product.class).getResultList();
+            List<Product> products = em.createQuery("SELECT p FROM Product p WHERE p.id <= " + PRODUCTS_REVIEWS_JOIN_COUNT_EAGER_LAZY, Product.class).getResultList();
             long count = 0;
             for (Product p : products) {
                 count += p.getReviews().size();
@@ -159,7 +160,7 @@ public class DataNucleusRepository implements BenchmarkRepository {
     @Override
     public long countReviewsJoinFetch() {
         try (EntityManager em = emf.createEntityManager()) {
-            List<Product> products = em.createQuery("SELECT DISTINCT p FROM Product p LEFT JOIN FETCH p.reviews WHERE p.id <= " + PRODUCTS_REVIEWS_JOIN_COUNT, Product.class).getResultList();
+            List<Product> products = em.createQuery("SELECT DISTINCT p FROM Product p LEFT JOIN FETCH p.reviews WHERE p.id <= " + PRODUCTS_REVIEWS_JOIN_COUNT_EAGER_LAZY, Product.class).getResultList();
             long count = 0;
             for (Product p : products) {
                 count += p.getReviews().size();
@@ -181,6 +182,31 @@ public class DataNucleusRepository implements BenchmarkRepository {
                 }
             }
             tx.commit();
+        }
+    }
+
+    @Override
+    public void bulkUpdateJpql(Integer producerId) {
+        try (EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            em.createQuery("UPDATE Product p SET p.price = p.price * 1.1 WHERE p.producer.id = :pid")
+                    .setParameter("pid", producerId)
+                    .executeUpdate();
+            em.getTransaction().commit();
+        }
+    }
+
+    @Override
+    public void bulkUpdateInLoop(Integer producerId) {
+        try (EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            List<Product> products = em.createQuery("SELECT p FROM Product p WHERE p.producer.id = :pid", Product.class)
+                    .setParameter("pid", producerId)
+                    .getResultList();
+            for (Product p : products) {
+                p.setPrice(p.getPrice().multiply(new BigDecimal("1.1")));
+            }
+            em.getTransaction().commit();
         }
     }
 }
