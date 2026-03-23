@@ -38,6 +38,7 @@ public class Benchmark9 {
 
     @TearDown(Level.Trial)
     public void tearDownTrial() {
+        this.repository.clearDatabase();
         this.repository.tearDown();
     }
 

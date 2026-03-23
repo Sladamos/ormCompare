@@ -174,4 +174,26 @@ public class HibernateRepository implements BenchmarkRepository {
             tx.commit();
         }
     }
+
+    @Override
+    public void insertInOneTransaction(List<Product> products) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            for (Product p : products) {
+                session.persist(p);
+            }
+            tx.commit();
+        }
+    }
+
+    @Override
+    public void insertInMultipleTransactions(List<Product> products) {
+        for (Product p : products) {
+            try (Session session = sessionFactory.openSession()) {
+                Transaction tx = session.beginTransaction();
+                session.persist(p);
+                tx.commit();
+            }
+        }
+    }
 }

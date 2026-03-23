@@ -215,6 +215,24 @@ public class CayenneRepository implements BenchmarkRepository {
         context.commitChanges();
     }
 
+    @Override
+    public void insertInOneTransaction(List<Product> products) {
+        ObjectContext context = cayenneRuntime.newContext();
+        for (Product p : products) {
+            saveProduct(p, context);
+        }
+        context.commitChanges();
+    }
+
+    @Override
+    public void insertInMultipleTransactions(List<Product> products) {
+        for (Product p : products) {
+            ObjectContext context = cayenneRuntime.newContext();
+            saveProduct(p, context);
+            context.commitChanges();
+        }
+    }
+
     private CayenneDataObject saveProducer(com.sladamos.model.Producer p, ObjectContext context) {
         CayenneDataObject cayenneProducer = new CayenneDataObject();
         cayenneProducer.setObjectId(ObjectId.of("Producer"));

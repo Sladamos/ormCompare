@@ -21,6 +21,8 @@ public interface BenchmarkRepository {
     void insertBatched(List<Product> products, int batchSize);
     void bulkUpdateJpql(Integer producerId);
     void bulkUpdateInLoop(Integer producerId);
+    void insertInOneTransaction(List<Product> products);
+    void insertInMultipleTransactions(List<Product> products);
 
     long PRODUCTS_REVIEWS_JOIN_COUNT_EAGER_LAZY = 50;
 }

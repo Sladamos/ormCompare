@@ -37,6 +37,11 @@ public class Benchmark1 {
         this.repository.tearDown();
     }
 
+    @Setup(Level.Iteration)
+    public void setupIteration() {
+        repository.clearDatabase();
+    }
+
     @Benchmark
     public void singleInsert() {
         for (int i = 0; i < 1000; i++) {
@@ -45,10 +50,5 @@ public class Benchmark1 {
             p.setCountry("Benchmark1Country");
             repository.save(p);
         }
-    }
-
-    @Setup(Level.Iteration)
-    public void setupIteration() {
-        repository.clearDatabase();
     }
 }

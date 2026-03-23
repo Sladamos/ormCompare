@@ -209,4 +209,26 @@ public class DataNucleusRepository implements BenchmarkRepository {
             em.getTransaction().commit();
         }
     }
+
+    @Override
+    public void insertInOneTransaction(List<Product> products) {
+        try (EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            for (Product p : products) {
+                em.persist(p);
+            }
+            em.getTransaction().commit();
+        }
+    }
+
+    @Override
+    public void insertInMultipleTransactions(List<Product> products) {
+        for (Product p : products) {
+            try (EntityManager em = emf.createEntityManager()) {
+                em.getTransaction().begin();
+                em.persist(p);
+                em.getTransaction().commit();
+            }
+        }
+    }
 }
