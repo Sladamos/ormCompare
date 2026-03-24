@@ -15,6 +15,13 @@ CREATE TABLE IF NOT EXISTS product (
     ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS product_versioned (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2),
+    version INT DEFAULT 0
+);
+
 CREATE TABLE IF NOT EXISTS review (
     id SERIAL PRIMARY KEY,
     first_name VARCHAR(100),
@@ -30,4 +37,5 @@ CREATE TABLE IF NOT EXISTS review (
 
 ALTER SEQUENCE producer_id_seq INCREMENT BY 100;
 ALTER SEQUENCE product_id_seq INCREMENT BY 100;
+ALTER SEQUENCE product_versioned_id_seq INCREMENT BY 100;
 ALTER SEQUENCE review_id_seq INCREMENT BY 100;
