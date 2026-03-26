@@ -2,6 +2,7 @@ package com.sladamos.repository;
 
 import com.sladamos.model.Producer;
 import com.sladamos.model.Product;
+import com.sladamos.model.ProductVersioned;
 import com.sladamos.model.Review;
 import org.apache.cayenne.*;
 import org.apache.cayenne.configuration.server.ServerRuntime;
@@ -44,7 +45,8 @@ public class CayenneRepository implements BenchmarkRepository {
             case Producer p -> p.setId(generatedId);
             case Product p -> p.setId(generatedId);
             case Review r -> r.setId(generatedId);
-            default -> {}
+            case ProductVersioned pv -> pv.setId(generatedId);
+            default -> throw new IllegalStateException("Unexpected value: " + o);
         }
 
     }
@@ -54,7 +56,8 @@ public class CayenneRepository implements BenchmarkRepository {
             case Producer p -> saveProducer(p, context);
             case Product p -> saveProduct(p, context);
             case Review r -> saveReview(r, context);
-            default -> throw new IllegalArgumentException("Cayenne nie obsługuje tego typu obiektu: " + o.getClass().getName());
+            case ProductVersioned pv -> saveProductVersioned(pv, context);
+            default -> throw new IllegalStateException("Unexpected value: " + o);
         };
     }
 
@@ -63,6 +66,7 @@ public class CayenneRepository implements BenchmarkRepository {
         ObjectContext context = cayenneRuntime.newContext();
         SQLExec.query("DELETE FROM review WHERE id > 100000").execute(context);
         SQLExec.query("DELETE FROM product WHERE id > 1000").execute(context);
+        SQLExec.query("DELETE FROM product_versioned WHERE id > 1000").execute(context);
         SQLExec.query("DELETE FROM producer WHERE id > 10").execute(context);
     }
 
@@ -91,6 +95,17 @@ public class CayenneRepository implements BenchmarkRepository {
         DataObject cayenneProduct = (DataObject) Cayenne.objectForPK(context, "Product", id);
         if (cayenneProduct != null) {
             cayenneProduct.writeProperty("name", newName);
+            context.commitChanges();
+        }
+    }
+
+    @Override
+    public void updateProduct(Integer id, BigDecimal sum) {
+        ObjectContext context = cayenneRuntime.newContext();
+        DataObject cayenneProduct = (DataObject) Cayenne.objectForPK(context, "Product", id);
+        if (cayenneProduct != null) {
+            BigDecimal currentPrice = (BigDecimal) cayenneProduct.readProperty("price");
+            cayenneProduct.writeProperty("price", currentPrice.add(sum));
             context.commitChanges();
         }
     }
@@ -233,6 +248,15 @@ public class CayenneRepository implements BenchmarkRepository {
         }
     }
 
+    @Override
+    public void updateVersionedProductPrice(Integer id, BigDecimal sum) {
+        ObjectContext context = cayenneRuntime.newContext();
+        DataObject p = (DataObject) Cayenne.objectForPK(context, "ProductVersioned", id);
+        BigDecimal currentPrice = (BigDecimal) p.readProperty("price");
+        p.writeProperty("price", currentPrice.add(sum));
+        context.commitChanges();
+    }
+
     private CayenneDataObject saveProducer(com.sladamos.model.Producer p, ObjectContext context) {
         CayenneDataObject cayenneProducer = new CayenneDataObject();
         cayenneProducer.setObjectId(ObjectId.of("Producer"));
@@ -273,5 +297,17 @@ public class CayenneRepository implements BenchmarkRepository {
             cayenneReview.setToOneTarget("product", dbProduct, true);
         }
         return cayenneReview;
+    }
+
+    private CayenneDataObject saveProductVersioned(com.sladamos.model.ProductVersioned p, ObjectContext context) {
+        CayenneDataObject cayenneProduct = new CayenneDataObject();
+        cayenneProduct.setObjectId(ObjectId.of("ProductVersioned"));
+        context.registerNewObject(cayenneProduct);
+
+        cayenneProduct.writeProperty("name", p.getName());
+        cayenneProduct.writeProperty("price", p.getPrice());
+        cayenneProduct.writeProperty("version", p.getVersion() != null ? p.getVersion() : 0);
+
+        return cayenneProduct;
     }
 }

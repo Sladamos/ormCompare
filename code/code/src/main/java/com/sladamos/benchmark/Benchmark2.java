@@ -18,10 +18,10 @@ import static com.sladamos.benchmark.Config.*;
 @Fork(1)
 public class Benchmark2 {
 
-    private final RepositoryFactory repositoryFactory = new RepositoryFactory(DB_PROFILE);
-
     @Param({"hibernate", "eclipselink", "datanucleus", "cayenne"})
     private String ormProvider;
+
+    private final RepositoryFactory repositoryFactory = new RepositoryFactory(DB_PROFILE);
 
     private BenchmarkRepository repository;
 

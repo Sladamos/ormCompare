@@ -20,15 +20,16 @@ import static com.sladamos.benchmark.Config.*;
 @Fork(1)
 public class Benchmark8 {
 
-    private final RepositoryFactory repositoryFactory = new RepositoryFactory(DB_PROFILE);
-
     @Param({"hibernate", "eclipselink", "datanucleus", "cayenne"})
     private String ormProvider;
 
     @Param({"1", "50", "100"})
     private int batchSize;
 
+    private final RepositoryFactory repositoryFactory = new RepositoryFactory(DB_PROFILE);
+
     private BenchmarkRepository repository;
+
     private List<Product> productsToInsert;
 
     private long counter = 0;

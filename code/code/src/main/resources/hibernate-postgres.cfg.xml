@@ -28,5 +28,6 @@
         <mapping class="com.sladamos.model.Producer"/>
         <mapping class="com.sladamos.model.Product"/>
         <mapping class="com.sladamos.model.Review"/>
+        <mapping class="com.sladamos.model.ProductVersioned"/>
     </session-factory>
 </hibernate-configuration>

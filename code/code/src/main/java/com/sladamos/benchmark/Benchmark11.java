@@ -1,7 +1,7 @@
 package com.sladamos.benchmark;
 
-import com.sladamos.model.Producer;
 import com.sladamos.model.Product;
+import com.sladamos.model.ProductVersioned;
 import com.sladamos.repository.BenchmarkRepository;
 import com.sladamos.repository.RepositoryFactory;
 import org.openjdk.jmh.annotations.*;
@@ -19,8 +19,9 @@ import static com.sladamos.benchmark.Config.*;
 @Warmup(iterations = WARMUP_ITERATIONS, time = WARMUP_SECONDS)
 @Measurement(iterations = MEASUREMENT_ITERATIONS, time = MEASUREMENT_SECONDS)
 @Fork(1)
-public class Benchmark10 {
+public class Benchmark11 {
 
+    public static final BigDecimal SUM = new BigDecimal("1.00");
     @Param({"hibernate", "eclipselink", "datanucleus", "cayenne"})
     private String ormProvider;
 
@@ -28,7 +29,9 @@ public class Benchmark10 {
 
     private BenchmarkRepository repository;
 
-    private List<Product> products;
+    private List<Integer> standardIds;
+
+    private List<Integer> versionedIds;
 
     private long counter = 0;
 
@@ -47,29 +50,35 @@ public class Benchmark10 {
     @Setup(Level.Iteration)
     public void setupIteration() {
         repository.clearDatabase();
+        standardIds = new ArrayList<>();
+        versionedIds = new ArrayList<>();
 
-        Producer sharedProducer = new Producer();
-        sharedProducer.setName("Benchmark9 " + counter++);
-        sharedProducer.setCountry("Benchmark9Country");
-        repository.save(sharedProducer);
-
-        products = new ArrayList<>(1000);
         for (int i = 0; i < 1000; i++) {
             Product p = new Product();
-            p.setName("Benchmark9 " + counter++);
+            p.setName("Benchmark11 St" + counter);
             p.setPrice(new BigDecimal("100.00"));
-            p.setProducer(sharedProducer);
-            products.add(p);
+            repository.save(p);
+            standardIds.add(p.getId());
+
+            ProductVersioned pv = new ProductVersioned();
+            pv.setName("Benchmark11 Ver" + counter);
+            pv.setPrice(new BigDecimal("100.00"));
+            repository.save(pv);
+            versionedIds.add(pv.getId());
         }
     }
 
     @Benchmark
-    public void insertOneTransaction() {
-        repository.insertInOneTransaction(products);
+    public void updateStandard() {
+        for (Integer id : standardIds) {
+            repository.updateProduct(id, SUM);
+        }
     }
 
     @Benchmark
-    public void insertMultipleTransactions() {
-        repository.insertInMultipleTransactions(products);
+    public void updateOptimisticLocking() {
+        for (Integer id : versionedIds) {
+            repository.updateVersionedProductPrice(id, SUM);
+        }
     }
 }

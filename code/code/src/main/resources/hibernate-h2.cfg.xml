@@ -4,7 +4,7 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:h2:../../data/h2/testdb;MODE=PostgreSQL</property>
+                <property name="connection.url">jdbc:h2:../../data/h2/testdb;MODE=PostgreSQL;LOCK_TIMEOUT=10000</property>
 <!--        <property name="connection.url">jdbc:h2:../../data/h2/testdb;MODE=PostgreSQL;INIT=RUNSCRIPT FROM '../../data/h2/create_tables.sql'\;RUNSCRIPT FROM '../../data/h2/insert_data.sql'</property>-->
         <property name="connection.username">sa</property>
         <property name="connection.password"></property>
@@ -25,5 +25,6 @@
         <mapping class="com.sladamos.model.Producer"/>
         <mapping class="com.sladamos.model.Product"/>
         <mapping class="com.sladamos.model.Review"/>
+        <mapping class="com.sladamos.model.ProductVersioned"/>
     </session-factory>
 </hibernate-configuration>

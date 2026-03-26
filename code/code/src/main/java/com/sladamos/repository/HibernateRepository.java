@@ -2,6 +2,7 @@ package com.sladamos.repository;
 
 import com.sladamos.model.Producer;
 import com.sladamos.model.Product;
+import com.sladamos.model.ProductVersioned;
 import com.sladamos.model.Review;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -55,6 +56,7 @@ public class HibernateRepository implements BenchmarkRepository {
             Transaction tx = session.beginTransaction();
             session.createNativeMutationQuery("DELETE FROM review WHERE id > 100000").executeUpdate();
             session.createNativeMutationQuery("DELETE FROM product WHERE id > 1000").executeUpdate();
+            session.createNativeMutationQuery("DELETE FROM product_versioned WHERE id > 1000").executeUpdate();
             session.createNativeMutationQuery("DELETE FROM producer WHERE id > 10").executeUpdate();
             tx.commit();
         }
@@ -74,6 +76,18 @@ public class HibernateRepository implements BenchmarkRepository {
             Product product = session.get(Product.class, id);
             if (product != null) {
                 product.setName(newName);
+            }
+            tx.commit();
+        }
+    }
+
+    @Override
+    public void updateProduct(Integer id, BigDecimal sum) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            Product product = session.get(Product.class, id);
+            if (product != null) {
+                product.setPrice(product.getPrice().add(sum));
             }
             tx.commit();
         }
@@ -194,6 +208,16 @@ public class HibernateRepository implements BenchmarkRepository {
                 session.persist(p);
                 tx.commit();
             }
+        }
+    }
+
+    @Override
+    public void updateVersionedProductPrice(Integer id, BigDecimal sum) {
+        try (Session session = sessionFactory.openSession()) {
+            Transaction tx = session.beginTransaction();
+            ProductVersioned p = session.get(ProductVersioned.class, id);
+            p.setPrice(p.getPrice().add(sum));
+            tx.commit();
         }
     }
 }

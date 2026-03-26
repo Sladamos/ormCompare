@@ -2,6 +2,7 @@ package com.sladamos.repository;
 
 import com.sladamos.model.Producer;
 import com.sladamos.model.Product;
+import com.sladamos.model.ProductVersioned;
 import com.sladamos.model.Review;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -61,6 +62,7 @@ public class EclipseLinkRepository implements BenchmarkRepository {
             tx.begin();
             em.createNativeQuery("DELETE FROM review WHERE id > 100000").executeUpdate();
             em.createNativeQuery("DELETE FROM product WHERE id > 1000").executeUpdate();
+            em.createNativeQuery("DELETE FROM product_versioned WHERE id > 1000").executeUpdate();
             em.createNativeQuery("DELETE FROM producer WHERE id > 10").executeUpdate();
             tx.commit();
         } catch (Exception e) {
@@ -86,6 +88,21 @@ public class EclipseLinkRepository implements BenchmarkRepository {
             Product product = em.find(Product.class, id);
             if (product != null) {
                 product.setName(newName);
+
+            }
+            tx.commit();
+        }
+    }
+
+    @Override
+    public void updateProduct(Integer id, BigDecimal sum) {
+        try (EntityManager em = emf.createEntityManager()) {
+            EntityTransaction tx = em.getTransaction();
+            tx.begin();
+            Product product = em.find(Product.class, id);
+            if (product != null) {
+                product.setPrice(product.getPrice().add(sum));
+
             }
             tx.commit();
         }
@@ -208,6 +225,16 @@ public class EclipseLinkRepository implements BenchmarkRepository {
                 em.persist(p);
                 em.getTransaction().commit();
             }
+        }
+    }
+
+    @Override
+    public void updateVersionedProductPrice(Integer id, BigDecimal sum) {
+        try (EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            ProductVersioned p = em.find(ProductVersioned.class, id);
+            p.setPrice(p.getPrice().add(sum));
+            em.getTransaction().commit();
         }
     }
 }

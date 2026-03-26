@@ -17,13 +17,14 @@ import static com.sladamos.benchmark.Config.*;
 @Fork(1)
 public class Benchmark1 {
 
-    private final RepositoryFactory repositoryFactory = new RepositoryFactory(DB_PROFILE);
-
-    private long counter = 0;
-
     @Param({"hibernate", "eclipselink", "datanucleus", "cayenne"})
     private String ormProvider;
+
+    private final RepositoryFactory repositoryFactory = new RepositoryFactory(DB_PROFILE);
+
     private BenchmarkRepository repository;
+
+    private long counter = 0;
 
     @Setup(Level.Trial)
     public void setup() {

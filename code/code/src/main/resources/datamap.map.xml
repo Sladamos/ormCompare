@@ -15,6 +15,12 @@
         <db-attribute name="price" type="DECIMAL" length="10" scale="2"/>
         <db-attribute name="producer_id" type="INTEGER"/>
     </db-entity>
+    <db-entity name="product_versioned">
+        <db-attribute name="id" type="INTEGER" isPrimaryKey="true" isGenerated="true"/>
+        <db-attribute name="name" type="VARCHAR" length="255" isMandatory="true"/>
+        <db-attribute name="price" type="DECIMAL" length="10" scale="2"/>
+        <db-attribute name="version" type="INTEGER"/>
+    </db-entity>
     <db-entity name="review">
         <db-attribute name="content" type="VARCHAR" length="65535"/>
         <db-attribute name="first_name" type="VARCHAR" length="255"/>
@@ -28,6 +34,12 @@
         <obj-attribute name="id" type="java.lang.Integer" db-attribute-path="id"/>
         <obj-attribute name="country" type="java.lang.String" db-attribute-path="country"/>
         <obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+    </obj-entity>
+    <obj-entity name="ProductVersioned" className="org.apache.cayenne.CayenneDataObject" dbEntityName="product_versioned">
+        <obj-attribute name="id" type="java.lang.Integer" db-attribute-path="id"/>
+        <obj-attribute name="name" type="java.lang.String" db-attribute-path="name"/>
+        <obj-attribute name="price" type="java.math.BigDecimal" db-attribute-path="price"/>
+        <obj-attribute name="version" type="java.lang.Integer" db-attribute-path="version" lock="true"/>
     </obj-entity>
     <obj-entity name="Product" className="org.apache.cayenne.CayenneDataObject" dbEntityName="product">
         <obj-attribute name="id" type="java.lang.Integer" db-attribute-path="id"/>
