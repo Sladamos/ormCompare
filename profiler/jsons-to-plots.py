@@ -30,6 +30,7 @@ def parse_filename(filepath):
 
 def load_data(filepath):
     data_rows = []
+    found_params = set()
     with open(filepath, 'r', encoding='utf-8') as f:
         for entry in json.load(f):
             sec = entry.get('secondaryMetrics', {})
@@ -37,11 +38,20 @@ def load_data(filepath):
             gc_t = sec.get('gc.time', {}).get('score', 0)
             comp_t = sec.get('comp.time', {}).get('score', 0)
 
-            raw_orm = entry.get('params', {}).get('ormProvider', 'unknown')
+            params = entry.get('params', {})
+            raw_orm = params.get('ormProvider', 'unknown')
             pretty_orm = ORM_NAMES.get(raw_orm.lower(), raw_orm.capitalize())
 
+            method_name = entry.get('benchmark', '').split('.')[-1]
+
+            extra_params = [f"{k}: {v}" for k, v in params.items() if k != 'ormProvider']
+            if extra_params:
+                method_name = f"{method_name}\n({', '.join(extra_params)})"
+                for p in extra_params:
+                    found_params.add(p)
+
             data_rows.append({
-                'Method': entry.get('benchmark', '').split('.')[-1],
+                'Method': method_name,
                 'ORM': pretty_orm,
                 'Czas [ms/op]': entry.get('primaryMetric', {}).get('score', 0),
                 'Alokacja [MB/op]': sec.get('gc.alloc.rate.norm', {}).get('score', 0) / (1024 * 1024),
@@ -49,6 +59,10 @@ def load_data(filepath):
                 'GC Time [ms]': gc_t if not pd.isna(gc_t) else 0,
                 'JIT Time [ms]': comp_t if not pd.isna(comp_t) else 0
             })
+
+    if found_params:
+        print(f"  -> Wykryto dodatkowe parametry: {', '.join(sorted(found_params))}")
+
     df = pd.DataFrame(data_rows)
     if not df.empty:
         df['ORM'] = pd.Categorical(df['ORM'], categories=ORM_ORDER, ordered=True)
@@ -177,23 +191,33 @@ def main():
 
     files = glob.glob(os.path.join(JSON_DIR, '*.json'))
     if not files:
+        print(f"Brak plików .json w folderze {JSON_DIR}.")
         return
+
+    print(f"Znaleziono {len(files)} plików do przetworzenia.")
 
     files.sort(key=os.path.getmtime, reverse=True)
     if not PROCESS_ALL:
         files = files[:N_LATEST]
+        print(f"Przetwarzam tylko {N_LATEST} najnowszych plików.")
 
     for file in files:
+        print(f"\n--- Rozpoczęto przetwarzanie pliku: {os.path.basename(file)} ---")
         df = load_data(file)
         if df.empty:
             continue
 
         db_profile, bench_num = parse_filename(file)
+        print(f"  -> Rozpoznano bazę danych: {db_profile.upper()}, Scenariusz nr: {bench_num}")
         out_dir = os.path.join(PLOT_DIR, bench_num)
         os.makedirs(out_dir, exist_ok=True)
 
+        print("  -> Zapisywanie wykresów indywidualnych.")
         save_individual_plots(df, db_profile, out_dir)
-        generate_dashboard(df, db_profile, bench_num, os.path.join(out_dir, f"{db_profile}_03_dashboard.png"))
+        dashboard_path = os.path.join(out_dir, f"{db_profile}_03_dashboard.png")
+        print(f"  -> Zapisywanie głównego dashboardu: {os.path.basename(dashboard_path)}.")
+        generate_dashboard(df, db_profile, bench_num, dashboard_path)
+        print(f"  -> Zakończono z sukcesem. Zapisano w folderze: {out_dir}")
 
 
 if __name__ == '__main__':

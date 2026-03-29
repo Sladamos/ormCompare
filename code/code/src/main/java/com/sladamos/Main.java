@@ -18,7 +18,7 @@ public class Main {
     public static void main(String[] args) throws RunnerException, IOException {
         String resultFile = createResultFile();
         Options opt = new OptionsBuilder()
-                .include("Benchmark" + BENCHMARK_NUMBER)
+                .include("Benchmark" + BENCHMARK_NUMBER + "\\.")
                 .resultFormat(ResultFormatType.JSON)
                 .result(resultFile)
                 .addProfiler("gc")
