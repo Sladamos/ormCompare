@@ -20,12 +20,6 @@ public class ProductVersioned {
     @Version
     private Integer version;
 
-    @Transient
-    private Object[] dnDetachedState;
-
-    @Transient
-    private Object[] dnStateManager;
-
     public ProductVersioned() {}
 
     public ProductVersioned(String name, BigDecimal price) {

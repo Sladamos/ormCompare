@@ -25,12 +25,6 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
-    @Transient
-    private Object[] dnDetachedState;
-
-    @Transient
-    private Object[] dnStateManager;
-
     public Product() {}
 
     public Product(String name, BigDecimal price, Producer producer) {

@@ -25,6 +25,7 @@
         <property name="hbm2ddl.auto">none</property>
         <property name="jdbc.batch_size">100</property>
 
+        <mapping resource="META-INF/orm-ignore.xml"/>
         <mapping class="com.sladamos.model.Producer"/>
         <mapping class="com.sladamos.model.Product"/>
         <mapping class="com.sladamos.model.Review"/>

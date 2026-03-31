@@ -21,12 +21,6 @@ public class Producer {
     @OneToMany(mappedBy = "producer")
     private List<Product> products;
 
-    @Transient
-    private Object[] dnDetachedState;
-
-    @Transient
-    private Object[] dnStateManager;
-
     public Producer() {}
 
     public Producer(Integer id) {
