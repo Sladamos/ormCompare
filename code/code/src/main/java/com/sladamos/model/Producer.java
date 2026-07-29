@@ -1,6 +1,8 @@
 package com.sladamos.model;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,7 +21,7 @@ public class Producer {
     private String country;
 
     @OneToMany(mappedBy = "producer")
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
     public Producer() {}
 

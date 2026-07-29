@@ -1,7 +1,9 @@
 package com.sladamos.model;
 
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,8 +24,8 @@ public class Product {
     @JoinColumn(name = "producer_id")
     private Producer producer;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<Review> reviews;
+    @OneToMany(mappedBy = "product")
+    private List<Review> reviews = new ArrayList<>();
 
     public Product() {}
 

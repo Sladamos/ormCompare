@@ -49,16 +49,15 @@ public class Benchmark10 {
         repository.clearDatabase();
 
         Producer sharedProducer = new Producer();
-        sharedProducer.setName("Benchmark9 " + counter++);
-        sharedProducer.setCountry("Benchmark9Country");
+        sharedProducer.setName("Benchmark10 " + counter++);
+        sharedProducer.setCountry("Benchmark10Country");
         repository.save(sharedProducer);
 
         products = new ArrayList<>(1000);
         for (int i = 0; i < 1000; i++) {
             Product p = new Product();
-            p.setName("Benchmark9 " + counter++);
+            p.setName("Benchmark10 " + counter++);
             p.setPrice(new BigDecimal("100.00"));
-            p.setProducer(sharedProducer);
             products.add(p);
         }
     }
