@@ -1,13 +1,13 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:148.0) Gecko/20100101 Firefox/148.0" version="29.6.3">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:148.0) Gecko/20100101 Firefox/148.0">
   <diagram name="Strona-1" id="ZziHNnKknuWswc-Rq7Rt">
-    <mxGraphModel dx="1055" dy="583" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="822" dy="456" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="WQmgivBoUNKslv753h3p-48" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#000000;" value="&lt;b&gt;Class: Producent&lt;/b&gt;" vertex="1">
-          <mxGeometry height="108" width="180" x="610" y="150" as="geometry" />
+          <mxGeometry height="108" width="180" x="660" y="150" as="geometry" />
         </mxCell>
-        <mxCell id="WQmgivBoUNKslv753h3p-49" parent="WQmgivBoUNKslv753h3p-48" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- id: Long" vertex="1">
+        <mxCell id="WQmgivBoUNKslv753h3p-49" parent="WQmgivBoUNKslv753h3p-48" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- id: Int" vertex="1">
           <mxGeometry height="26" width="180" y="30" as="geometry" />
         </mxCell>
         <mxCell id="WQmgivBoUNKslv753h3p-50" parent="WQmgivBoUNKslv753h3p-48" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="- nazwa: String" vertex="1">
@@ -20,9 +20,9 @@
           <mxGeometry height="50" width="140" x="830" y="179" as="geometry" />
         </mxCell>
         <mxCell id="WQmgivBoUNKslv753h3p-53" parent="1" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#000000;" value="&lt;b&gt;Table: producent&lt;/b&gt;" vertex="1">
-          <mxGeometry height="108" width="200" x="1010" y="150" as="geometry" />
+          <mxGeometry height="108" width="200" x="960" y="150" as="geometry" />
         </mxCell>
-        <mxCell id="WQmgivBoUNKslv753h3p-54" parent="WQmgivBoUNKslv753h3p-53" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontStyle=1" value="id BIGINT (PK)" vertex="1">
+        <mxCell id="WQmgivBoUNKslv753h3p-54" parent="WQmgivBoUNKslv753h3p-53" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;fontStyle=1" value="id INTEGER (PK)" vertex="1">
           <mxGeometry height="26" width="200" y="30" as="geometry" />
         </mxCell>
         <mxCell id="WQmgivBoUNKslv753h3p-55" parent="WQmgivBoUNKslv753h3p-53" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" value="nazwa VARCHAR(255)" vertex="1">
