@@ -17,8 +17,8 @@
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 
             <property name="eclipselink.logging.level" value="OFF"/>
-            <property name="eclipselink.jdbc.read-connections.min" value="5"/>
             <property name="eclipselink.jdbc.write-connections.min" value="5"/>
+            <property name="eclipselink.jdbc.write-connections.max" value="20"/>
             <property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
             <property name="eclipselink.jdbc.batch-writing.size" value="100"/>
             <property name="eclipselink.cache.shared.default" value="false"/>
@@ -39,6 +39,8 @@
             <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
 
             <property name="eclipselink.logging.level" value="OFF"/>
+            <property name="eclipselink.jdbc.write-connections.min" value="5"/>
+            <property name="eclipselink.jdbc.write-connections.max" value="20"/>
             <property name="eclipselink.target-database" value="PostgreSQL"/>
             <property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
             <property name="eclipselink.jdbc.batch-writing.size" value="100"/>
@@ -59,9 +61,11 @@
             <property name="jakarta.persistence.jdbc.password" value="secret"/>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 
+            <property name="datanucleus.connectionPool.maxActive" value="20"/>
+            <property name="datanucleus.connectionPool.maxIdle"   value="20"/>
+            <property name="datanucleus.connectionPool.minIdle"   value="5"/>
             <property name="datanucleus.identifier.case" value="LowerCase"/>
             <property name="datanucleus.schema.autoCreateAll" value="false"/>
-            <property name="datanucleus.schema.validateTables" value="false"/>
             <property name="datanucleus.rdbms.datastoreAdapterClassName" value="org.datanucleus.store.rdbms.adapter.PostgreSQLAdapter"/>
             <property name="datanucleus.rdbms.statementBatchLimit" value="100"/>
             <property name="datanucleus.valuegeneration.sequence.allocationSize" value="100"/>
@@ -81,6 +85,9 @@
             <property name="jakarta.persistence.jdbc.password" value=""/>
             <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
 
+            <property name="datanucleus.connectionPool.maxActive" value="20"/>
+            <property name="datanucleus.connectionPool.maxIdle"   value="20"/>
+            <property name="datanucleus.connectionPool.minIdle"   value="5"/>
             <property name="datanucleus.schema.autoCreateAll" value="false"/>
             <property name="datanucleus.rdbms.statementBatchLimit" value="100"/>
             <property name="datanucleus.valuegeneration.sequence.allocationSize" value="100"/>

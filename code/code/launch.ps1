@@ -1,0 +1,2 @@
+mvn clean package dependency:copy-dependencies
+C:\Users\Sladamos\.jdks\corretto-21.0.2\bin\java.exe --% -Djava.util.logging.config.file=logging.properties -cp "target/classes;target/dependency/*" com.sladamos.Main

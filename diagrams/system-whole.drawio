@@ -1,0 +1,43 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150.0.0.0 Safari/537.36" version="29.6.5">
+  <diagram name="Platforma" id="platforma-stos">
+    <mxGraphModel dx="2593" dy="355" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="560" math="0" shadow="0">
+      <root>
+        <mxCell id="iRjACVGGYudGjLqgWKoy-0" />
+        <mxCell id="iRjACVGGYudGjLqgWKoy-1" parent="iRjACVGGYudGjLqgWKoy-0" />
+        <mxCell id="i3VlSyirzkKrsR3Kmqtg-61" parent="iRjACVGGYudGjLqgWKoy-1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fafafa;strokeColor=#999999;fontColor=#000000;fontStyle=1;fontSize=15;align=center;verticalAlign=top;spacingTop=10;" value="Stacja robocza" vertex="1">
+          <mxGeometry height="399.83" width="754.67" x="775.33" y="1290" as="geometry" />
+        </mxCell>
+        <mxCell id="i3VlSyirzkKrsR3Kmqtg-62" parent="i3VlSyirzkKrsR3Kmqtg-61" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eef2f8;strokeColor=#6c8ebf;fontColor=#000000;shadow=1;" value="&lt;b&gt;Procesor&lt;/b&gt;&lt;br&gt;AMD Ryzen 7 5800X" vertex="1">
+          <mxGeometry height="51.40671428571427" width="215.61999999999998" x="35.93666666666667" y="58.99990865775601" as="geometry" />
+        </mxCell>
+        <mxCell id="i3VlSyirzkKrsR3Kmqtg-63" parent="i3VlSyirzkKrsR3Kmqtg-61" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eef2f8;strokeColor=#6c8ebf;fontColor=#000000;shadow=1;" value="&lt;b&gt;Pamięć RAM&lt;/b&gt;&lt;br&gt;32 GB DDR4-3200" vertex="1">
+          <mxGeometry height="51.40671428571427" width="215.61999999999998" x="269.525" y="58.99990865775601" as="geometry" />
+        </mxCell>
+        <mxCell id="i3VlSyirzkKrsR3Kmqtg-64" parent="i3VlSyirzkKrsR3Kmqtg-61" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eef2f8;strokeColor=#6c8ebf;fontColor=#000000;shadow=1;" value="&lt;b&gt;Dysk&lt;/b&gt;&lt;br&gt;SSD NVMe Kingston KC3000 2 TB" vertex="1">
+          <mxGeometry height="51.40671428571427" width="215.61999999999998" x="499.67333333333335" y="58.99990865775601" as="geometry" />
+        </mxCell>
+        <mxCell id="i3VlSyirzkKrsR3Kmqtg-65" parent="i3VlSyirzkKrsR3Kmqtg-61" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontColor=#000000;fontStyle=1;align=center;verticalAlign=top;spacingTop=8;" value="System operacyjny — Windows 11 Pro (build 10.0.26200)" vertex="1">
+          <mxGeometry height="237.8904215992187" width="700.77" x="26.95" y="142.8542505299764" as="geometry" />
+        </mxCell>
+        <mxCell id="i3VlSyirzkKrsR3Kmqtg-66" parent="i3VlSyirzkKrsR3Kmqtg-65" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontColor=#000000;fontStyle=1;align=center;verticalAlign=top;spacingTop=6;" value="Maszyna wirtualna Java (JVM)" vertex="1">
+          <mxGeometry height="164.36810065979085" width="197.65" x="22.16" y="45.15146678417454" as="geometry" />
+        </mxCell>
+        <mxCell id="i3VlSyirzkKrsR3Kmqtg-67" parent="i3VlSyirzkKrsR3Kmqtg-66" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontColor=#000000;" value="&lt;b&gt;Aplikacja OrmCompare&lt;/b&gt;&lt;br&gt;narzędzia ORM + H2" vertex="1">
+          <mxGeometry height="76.70511364123573" width="164.70833333333334" x="16.470833333333335" y="60.26830357525663" as="geometry" />
+        </mxCell>
+        <mxCell id="i3VlSyirzkKrsR3Kmqtg-68" parent="i3VlSyirzkKrsR3Kmqtg-65" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#000000;" value="&lt;b&gt;Docker Desktop 4.60.1&lt;/b&gt;&lt;br&gt;(zarządzanie kontenerami)" vertex="1">
+          <mxGeometry height="164.36810065979085" width="179.68" x="251.56" y="45.15146678417454" as="geometry" />
+        </mxCell>
+        <mxCell id="i3VlSyirzkKrsR3Kmqtg-69" parent="i3VlSyirzkKrsR3Kmqtg-65" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#eeeeee;strokeColor=#666666;fontColor=#000000;fontStyle=1;align=center;verticalAlign=top;spacingTop=6;" value="WSL 2 (Ubuntu 22.04.3 LTS)" vertex="1">
+          <mxGeometry height="164.36810065979085" width="188.08" x="467.18" y="45.15146678417454" as="geometry" />
+        </mxCell>
+        <mxCell id="i3VlSyirzkKrsR3Kmqtg-70" parent="i3VlSyirzkKrsR3Kmqtg-69" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontColor=#000000;fontStyle=1;align=center;verticalAlign=top;spacingTop=6;" value="Docker Engine 29.2.0" vertex="1">
+          <mxGeometry height="107.82547403282275" width="163.00551636363636" x="12.541516363636363" y="38.67484721406843" as="geometry" />
+        </mxCell>
+        <mxCell id="i3VlSyirzkKrsR3Kmqtg-71" parent="i3VlSyirzkKrsR3Kmqtg-70" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontColor=#000000;" value="&lt;b&gt;Kontener PostgreSQL&lt;/b&gt;" vertex="1">
+          <mxGeometry height="63.82316661501643" width="145.9098853729816" x="8.549240368722188" y="36.470380922866525" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
