@@ -16,7 +16,7 @@
             <property name="jakarta.persistence.jdbc.password" value="secret"/>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 
-            <property name="eclipselink.logging.level" value="OFF"/>
+            <property name="eclipselink.logging.level" value="WARNING"/>
             <property name="eclipselink.jdbc.write-connections.min" value="5"/>
             <property name="eclipselink.jdbc.write-connections.max" value="20"/>
             <property name="eclipselink.jdbc.batch-writing" value="JDBC"/>
@@ -38,7 +38,7 @@
             <property name="jakarta.persistence.jdbc.password" value=""/>
             <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
 
-            <property name="eclipselink.logging.level" value="OFF"/>
+            <property name="eclipselink.logging.level" value="WARNING"/>
             <property name="eclipselink.jdbc.write-connections.min" value="5"/>
             <property name="eclipselink.jdbc.write-connections.max" value="20"/>
             <property name="eclipselink.target-database" value="PostgreSQL"/>
@@ -61,6 +61,7 @@
             <property name="jakarta.persistence.jdbc.password" value="secret"/>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
 
+            <property name="datanucleus.cache.level2.type"   value="none"/>
             <property name="datanucleus.connectionPool.maxActive" value="20"/>
             <property name="datanucleus.connectionPool.maxIdle"   value="20"/>
             <property name="datanucleus.connectionPool.minIdle"   value="5"/>
@@ -85,6 +86,7 @@
             <property name="jakarta.persistence.jdbc.password" value=""/>
             <property name="jakarta.persistence.jdbc.driver" value="org.h2.Driver"/>
 
+            <property name="datanucleus.cache.level2.type"   value="none"/>
             <property name="datanucleus.connectionPool.maxActive" value="20"/>
             <property name="datanucleus.connectionPool.maxIdle"   value="20"/>
             <property name="datanucleus.connectionPool.minIdle"   value="5"/>
